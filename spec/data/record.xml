@@ -1,0 +1,20 @@
+<record>
+  <header>
+    <identifier>oai:berkeley-test.tind.io:5542</identifier>
+    <datestamp>2019-04-23T13:45:23Z</datestamp>
+    <setSpec>calher130</setSpec>
+  </header>
+  <metadata>
+    <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+      <dc:identifier>BANC PIC 19xx.069:02--ffALB</dc:identifier>
+      <dc:title>Municipal Boat-house on Lake Merritt</dc:title>
+      <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+      <dc:identifier>http://berkeley-test.tind.io/record/5542/files/I0025874A.jpg</dc:identifier>
+      <dc:date>2019-04-12T20:28:04Z</dc:date>
+      <dc:identifier>http://berkeley-test.tind.io/record/5542</dc:identifier>
+      <dc:source>http://berkeley-test.tind.io/record/5542</dc:source>
+      <dc:type>Text</dc:type>
+    </oai_dc:dc>
+  </metadata>
+</record>
+
