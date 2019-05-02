@@ -12,6 +12,7 @@ module Merritt
       def each
         return enum_for(:each) unless block_given?
 
+        # TODO: resumption tokens?
         @resp.each { |oai_record| yield Record.new(oai_record) }
       end
 
