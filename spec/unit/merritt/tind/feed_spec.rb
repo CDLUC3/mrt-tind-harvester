@@ -32,17 +32,12 @@ module Merritt::TIND
 
     describe 'pagination' do
       before(:each) do
-        WebMock.disable_net_connect!
         # 'I am a resumption token' -> UTF-8 bytes -> big integer (little-endian) -> base36
         token = '3kt58j5stglp50mv6wlrbgf7xyl6e2prrebt'
         url1 = 'https://tind.example.edu/oai2d?verb=ListRecords&metadataPrefix=oai_dc&set=calher130'
         stub_request(:get, url1).to_return(status: 200, body: File.new('spec/data/feed-1.xml'))
         url2 = "https://tind.example.edu/oai2d?resumptionToken=#{token}&verb=ListRecords"
         stub_request(:get, url2).to_return(status: 200, body: File.new('spec/data/feed-2.xml'))
-      end
-
-      after(:each) do
-        WebMock.allow_net_connect!
       end
 
       it 'handles resumption tokens' do

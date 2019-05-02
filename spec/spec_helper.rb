@@ -20,9 +20,13 @@ end
 # ------------------------------------------------------------
 # Rspec configuration
 
+require 'webmock/rspec'
+
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
   config.mock_with :rspec
+  config.before(:each) { WebMock.disable_net_connect! }
+  config.after(:each) { WebMock.allow_net_connect! }
 end
 
 # ------------------------------------------------------------
