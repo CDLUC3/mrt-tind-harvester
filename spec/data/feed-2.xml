@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://berkeley-test.tind.io/css/oai2.xsl.v1.0" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2019-05-02T17:17:52Z</responseDate><request verb="ListRecords" set="calher130" metadataPrefix="oai_dc">https://berkeley-test.tind.io/oai2d</request><ListRecords>
+<record><header><identifier>oai:berkeley-test.tind.io:5553</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:13--ffALB</dc:identifier>
+  <dc:title>Taylor Place Near Claremont Heights</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5553/files/I0025885A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:24Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5553</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5553</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5554</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:14--ffALB</dc:identifier>
+  <dc:title>Country Club Golf Links [Claremont Country Club - golfers on golf course]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5554/files/I0025886A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:25Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5554</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5554</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5555</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:15--ffALB</dc:identifier>
+  <dc:title>Football Statue, University of California Campus</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5555/files/I0025887A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:27Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5555</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5555</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5556</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:16--ffALB</dc:identifier>
+  <dc:title>Le Conte Oaks, University of California, Berkeley</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5556/files/I0025888A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:29Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5556</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5556</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5557</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:17--ffALB</dc:identifier>
+  <dc:title>Greek Theatre, Berkeley</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5557/files/I0025889A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:30Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5557</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5557</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5558</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:18--ffALB</dc:identifier>
+  <dc:title>Sather Campanile, University of California, Berkeley [under construction]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5558/files/I0025890A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:32Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5558</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5558</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5559</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:19--ffALB</dc:identifier>
+  <dc:title>Dublin Boulevard, near Hayward, Alameda County [shows automobiles]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5559/files/I0025891A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:33Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5559</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5559</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5560</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:20--ffALB</dc:identifier>
+  <dc:title>Palm Avenue, "Palmdale", Mission San Jose</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5560/files/I0025892A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:35Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5560</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5560</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5561</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:21--ffALB</dc:identifier>
+  <dc:title>Niles Canyon [aerial view]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5561/files/I0025893A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:37Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5561</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5561</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5562</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:22--ffALB</dc:identifier>
+  <dc:title>Panoramic View [of] Mission Peak and Valley</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5562/files/I0025894A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:38Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5562</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5562</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5563</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:23--ffALB</dc:identifier>
+  <dc:title>Panoramic View [of] Mission Peak and Valley</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5563/files/I0025895A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:40Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5563</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5563</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5564</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:24--ffALB</dc:identifier>
+  <dc:title>Panoramic View [of] Livermore Valley, Alameda County</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5564/files/I0025896A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:42Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5564</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5564</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5565</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:25--ffALB</dc:identifier>
+  <dc:title>Panoramic View [of] Livermore Valley, Alameda County</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5565/files/I0025897A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:43Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5565</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5565</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><resumptionToken completeListSize="24" cursor="12"/></ListRecords>
+</OAI-PMH>
+

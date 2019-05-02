@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://berkeley-test.tind.io/css/oai2.xsl.v1.0" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2019-05-02T17:17:52Z</responseDate><request verb="ListRecords" set="calher130" metadataPrefix="oai_dc">https://berkeley-test.tind.io/oai2d</request><ListRecords>
+<record><header><identifier>oai:berkeley-test.tind.io:5541</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:01--ffALB</dc:identifier>
+  <dc:title>View of Lakeside Park [Lakeside Park is located south of Grand Avenue, and west of Perkins between east and west arms of Lake Merritt.]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5541/files/I0025873A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:02Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5541</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5541</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5542</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:02--ffALB</dc:identifier>
+  <dc:title>Municipal Boat-house on Lake Merritt</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5542/files/I0025874A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:04Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5542</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5542</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5543</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:03--ffALB</dc:identifier>
+  <dc:title>Surf Beach Baths, Alameda [620 Central Avenue]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5543/files/I0025875A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:05Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5543</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5543</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5544</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:04--ffALB</dc:identifier>
+  <dc:title>Municipal Band-Stand, Lakeside Park</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5544/files/I0025876A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:07Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5544</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5544</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5545</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:05--ffALB</dc:identifier>
+  <dc:title>City Hall, Oakland Cal. [California]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5545/files/I0025877A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:09Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5545</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5545</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5546</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:06--ffALB</dc:identifier>
+  <dc:title>Looking East from 16th Street &amp; San Pablo Ave.</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5546/files/I0025878A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:10Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5546</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5546</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5547</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:07--ffALB</dc:identifier>
+  <dc:title>Lakeside Park, Oakland</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5547/files/I0025879A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:12Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5547</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5547</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5548</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:08--ffALB</dc:identifier>
+  <dc:title>Gates and Pergola Mosswood Park [Mosswood Park located between Broadway and Webster - Moss Avenue and 36th]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5548/files/I0025880A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:14Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5548</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5548</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5549</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:09--ffALB</dc:identifier>
+  <dc:title>Municipal Auditorium, Oakland [interior]</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5549/files/I0025881A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:15Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5549</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5549</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5550</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:10--ffALB</dc:identifier>
+  <dc:title>New Auditorium, Oakland, Cal. [California] Cost $10,000</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5550/files/I0025882A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:17Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5550</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5550</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5551</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:11--ffALB</dc:identifier>
+  <dc:title>Wild Ducks in Lake Merritt</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5551/files/I0025883A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:20Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5551</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5551</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><record><header><identifier>oai:berkeley-test.tind.io:5552</identifier><datestamp>2019-04-23T13:45:23Z</datestamp><setSpec>calher130</setSpec></header><metadata><oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:invenio="http://invenio-software.org/elements/1.0" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>BANC PIC 19xx.069:12--ffALB</dc:identifier>
+  <dc:title>Claremont Residences</dc:title>
+  <dc:identifier>http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955</dc:identifier>
+  <dc:identifier>http://berkeley-test.tind.io/record/5552/files/I0025884A.jpg</dc:identifier>
+  <dc:date>2019-04-12T20:28:22Z</dc:date>
+  <dc:identifier>http://berkeley-test.tind.io/record/5552</dc:identifier>
+  <dc:source>http://berkeley-test.tind.io/record/5552</dc:source>
+  <dc:type>Text</dc:type>
+</oai_dc:dc>
+</metadata></record><resumptionToken completeListSize="24" cursor="0">3kt58j5stglp50mv6wlrbgf7xyl6e2prrebt</resumptionToken></ListRecords>
+</OAI-PMH>
+
