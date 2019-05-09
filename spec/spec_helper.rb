@@ -32,4 +32,6 @@ end
 # ------------------------------------------------------------
 # Code under test
 
+ENV['HARVESTER_ENV'] = 'test'
+
 require 'merritt'

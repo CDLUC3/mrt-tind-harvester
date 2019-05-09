@@ -1,12 +1,18 @@
+require 'faraday_middleware'
 require 'oai/client'
+require 'yaml'
 
 module Merritt
   module TIND
     class Harvester
 
+      attr_reader :base_url
+      attr_reader :set
+
       def initialize(base_url, set)
-        @client = OAI::Client.new(base_url)
+        @base_url = base_url
         @set = set
+        @client = oai_client_for(base_url)
       end
 
       def harvest(from_time: nil, until_time: nil)
@@ -40,6 +46,29 @@ module Merritt
         return unless time
 
         raise ArgumentError, "time #{time} does not appear to be a Time"
+      end
+
+      class << self
+        def config_env
+          %w(HARVESTER_ENV RAILS_ENV RACK_ENV).each { |v| return ENV[v] if ENV[v] }
+          'development'
+        end
+
+        def from_config(config_yml)
+          config = File.exist?(config_yml) ? YAML.load_file(config_yml) : YAML.load(config_yml)
+          env_config = config[config_env]
+          Harvester.new(env_config['base_url'], env_config['set'])
+        end
+
+        def oai_client_for(base_url)
+          # Workaround for https://github.com/code4lib/ruby-oai/issues/45
+          http_client = Faraday.new(URI.parse(base_url)) do |conn|
+            conn.request(:retry, max: 5, retry_statuses: 503)
+            conn.response(:follow_redirects, limit: 5)
+            conn.adapter(:net_http)
+          end
+          OAI::Client.new(base_url, http: http_client)
+        end
       end
 
     end

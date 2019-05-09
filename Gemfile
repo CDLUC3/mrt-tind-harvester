@@ -8,6 +8,7 @@ group :development do
   gem 'capistrano', '~> 3.4'
   gem 'capistrano-bundler', '~> 1.1'
 
+  gem 'rake', '~> 12.0'
   gem 'rspec', '~> 3.8'
   gem 'rubocop', '~> 0.68'
   gem 'simplecov', '~> 0.16'

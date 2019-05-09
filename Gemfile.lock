@@ -110,6 +110,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.1)
   mrt-ingest (~> 0.0.4)
   oai (~> 0.4)
+  rake (~> 12.0)
   rest-client (~> 2.0)
   rspec (~> 3.8)
   rubocop (~> 0.68)
