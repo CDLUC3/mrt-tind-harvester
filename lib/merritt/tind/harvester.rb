@@ -77,15 +77,6 @@ module Merritt
           OAI::Client.new(base_url, http: http_client)
         end
 
-        private
-
-        def from_config(config)
-          env_config = config[environment]
-          base_url = env_config['base_url']
-          set = env_config['set']
-          Harvester.new(base_url, set, logger_from_config(config))
-        end
-
       end
     end
   end
