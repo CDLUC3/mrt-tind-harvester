@@ -24,7 +24,7 @@ module Merritt
           expect(log.level).to eq(Logger::INFO)
 
           msg = 'help I am trapped in a logging factory'
-          expect(logdev).to receive(:write).with(match(/[0-9T:+-]+\tWARN\t#{msg}/))
+          expect(logdev).to receive(:write).with(match(/[0-9TZ:+-]+\tWARN\t#{msg}/))
           log.warn(msg)
         end
       end
