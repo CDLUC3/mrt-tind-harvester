@@ -134,15 +134,15 @@ module Merritt::TIND
       it 'defaults to test in test' do
         expect(Harvester.config_env).to eq('test')
       end
-      
+
       describe 'from environment' do
         before(:each) do
           @harvester_env_orig = ENV['HARVESTER_ENV']
           @rails_env_orig = ENV['RAILS_ENV']
           @rack_env_orig = ENV['RACK_ENV']
-          %w(HARVESTER_ENV RAILS_ENV RACK_ENV).each { |v| ENV[v] = nil }
+          %w[HARVESTER_ENV RAILS_ENV RACK_ENV].each { |v| ENV[v] = nil }
         end
-        
+
         after(:each) do
           ENV['HARVESTER_ENV'] = @harvester_env_orig
           ENV['RAILS_ENV'] = @rails_env_orig
@@ -168,7 +168,7 @@ module Merritt::TIND
         end
 
         it 'prefers HARVESTER_ENV, then RAILS_ENV' do
-          %w(HARVESTER_ENV RAILS_ENV RACK_ENV).each { |v| ENV[v] = "value from #{v}" }
+          %w[HARVESTER_ENV RAILS_ENV RACK_ENV].each { |v| ENV[v] = "value from #{v}" }
           expect(Harvester.config_env).to eq('value from HARVESTER_ENV')
           ENV['HARVESTER_ENV'] = nil
           expect(Harvester.config_env).to eq('value from RAILS_ENV')
@@ -177,19 +177,11 @@ module Merritt::TIND
         end
 
         it 'defaults to development if not set' do
-          %w(HARVESTER_ENV RAILS_ENV RACK_ENV).each { |v| ENV[v] = nil }
+          %w[HARVESTER_ENV RAILS_ENV RACK_ENV].each { |v| ENV[v] = nil }
           expect(Harvester.config_env).to eq('development')
         end
       end
-      
-    end
-    
-    describe :from_config do
-      it 'reads the config from a file' do
-        harvester = Harvester.from_config('spec/data/tind-harvester.yml')
-        expect(harvester.base_url).to eq('https://tind.example.edu/oai2d')
-        expect(harvester.set).to eq('calher130')
-      end
+
     end
 
   end

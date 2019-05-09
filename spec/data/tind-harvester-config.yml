@@ -1,0 +1,5 @@
+test:
+  base_url: https://tind.example.edu/oai2d
+  set: calher130
+  log_level: info
+  log_path: tind-harvester-test.log
