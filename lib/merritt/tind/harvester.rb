@@ -16,7 +16,7 @@ module Merritt
 
       def initialize(base_url, set, logger = nil)
         @log = logger || Harvester.new_default_logger
-        log.info("initializing harvester for base URL <#{base_url}>, set #{set ? "'#{set}'" : '<nil>'}")
+        log.info("initializing harvester for base URL #{base_url}, set #{set ? "'#{set}'" : '<nil>'}")
 
         @base_url = base_url
         @set = set
@@ -25,7 +25,7 @@ module Merritt
 
       def harvest(from_time: nil, until_time: nil)
         opts = to_opts(from_time, until_time)
-        log.info("harvesting <#{query_url(opts)}>")
+        log.info("harvesting #{query_url(opts)}")
         resp = @client.list_records(opts)
         Feed.new(resp)
       end
@@ -104,7 +104,10 @@ module Merritt
           logdev = (config && config['log_path']) || STDERR
           shift_age = NUM_LOG_FILES # ignored for non-file logdev
           level = (config && config['log_level']) || DEFAULT_LOG_LEVEL
-          Logger.new(logdev, shift_age, level: level)
+          formatter = proc do |severity, datetime, _, msg|
+            "#{datetime.iso8601}\t#{severity}\t#{msg}\n"
+          end
+          Logger.new(logdev, shift_age, level: level, formatter: formatter)
         end
 
       end
