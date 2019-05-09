@@ -15,7 +15,7 @@ module Merritt
       attr_reader :log
 
       def initialize(base_url, set, logger = nil)
-        @log = logger || Harvester.new_default_logger
+        @log = logger || Logging.new_logger
         log.info("initializing harvester for base URL #{base_url}, set #{set ? "'#{set}'" : '<nil>'}")
 
         @base_url = base_url
@@ -67,20 +67,6 @@ module Merritt
 
       class << self
 
-        def from_config_file(config_yml)
-          config = YAML.load_file(config_yml)
-          from_config(config)
-        end
-
-        def config_env
-          %w[HARVESTER_ENV RAILS_ENV RACK_ENV].each { |v| return ENV[v] if ENV[v] }
-          'development'
-        end
-
-        def new_default_logger
-          logger_from_config({})
-        end
-
         def oai_client_for(base_url)
           # Workaround for https://github.com/code4lib/ruby-oai/issues/45
           http_client = Faraday.new(URI.parse(base_url)) do |conn|
@@ -94,20 +80,10 @@ module Merritt
         private
 
         def from_config(config)
-          env_config = config[config_env]
+          env_config = config[environment]
           base_url = env_config['base_url']
           set = env_config['set']
           Harvester.new(base_url, set, logger_from_config(config))
-        end
-
-        def logger_from_config(config)
-          logdev = (config && config['log_path']) || STDERR
-          shift_age = NUM_LOG_FILES # ignored for non-file logdev
-          level = (config && config['log_level']) || DEFAULT_LOG_LEVEL
-          formatter = proc do |severity, datetime, _, msg|
-            "#{datetime.iso8601}\t#{severity}\t#{msg}\n"
-          end
-          Logger.new(logdev, shift_age, level: level, formatter: formatter)
         end
 
       end
