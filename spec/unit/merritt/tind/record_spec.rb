@@ -3,16 +3,16 @@ require 'rexml/document'
 
 module Merritt::TIND
   describe Record do
-    describe :new do
+    describe :from_oai_record do
       describe 'invalid' do
         it 'rejects a nil record' do
-          expect { Record.new(nil) }.to raise_error(ArgumentError)
+          expect { Record.from_oai_record(nil) }.to raise_error(ArgumentError)
         end
 
         it 'rejects a non-nil record with a nil header' do
           oai_record = instance_double(OAI::Record)
           allow(oai_record).to receive(:header).and_return(nil)
-          expect { Record.new(oai_record).to raise_error(ArgumentError) }
+          expect { Record.from_oai_record(oai_record).to raise_error(ArgumentError) }
         end
       end
 
@@ -22,8 +22,8 @@ module Merritt::TIND
         before(:each) do
           file = File.new('spec/data/record.xml')
           doc = REXML::Document.new(file)
-          oai_record = OAI::Record.new(doc.root_node)
-          @record = Record.new(oai_record)
+          oai_record = OAI::Record.from_oai_record(doc.root_node)
+          @record = Record.from_oai_record(oai_record)
         end
 
         it 'extracts the identifier' do

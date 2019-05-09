@@ -3,3 +3,4 @@ test:
   set: calher130
   log_level: info
   log_path: tind-harvester-test.log
+  last_harvest: last-tind-harvest.txt
