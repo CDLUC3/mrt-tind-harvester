@@ -15,10 +15,7 @@ module Merritt
       end
 
       def to_h
-        {
-          IDENTIFIER => identifier,
-          DATESTAMP => datestamp
-        }
+        { IDENTIFIER => identifier, DATESTAMP => datestamp }
       end
 
       class << self

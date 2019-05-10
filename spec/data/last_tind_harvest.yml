@@ -1,0 +1,6 @@
+oldest_failed:
+  identifier: oai:berkeley-test.tind.io:5541
+  datestamp: 2019-04-23T12:34:56Z
+newest_success:
+  identifier: oai:berkeley-test.tind.io:5565
+  datestamp: 2019-04-23T13:35:57Z

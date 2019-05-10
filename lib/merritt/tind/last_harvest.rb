@@ -33,6 +33,11 @@ module Merritt
       end
 
       class << self
+        def from_file(last_harvest_yml)
+          h = YAML.load_file(last_harvest_yml)
+          from_hash(h)
+        end
+
         def from_hash(h)
           LastHarvest.new(
             oldest_failed: Record.from_hash(h[OLDEST_FAILED]),
