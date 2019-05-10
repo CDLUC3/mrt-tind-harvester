@@ -26,7 +26,7 @@ module Merritt
         def from_hash(h)
           return unless h
 
-          new Record(
+          Record.new(
             identifier: h[IDENTIFIER],
             datestamp: h[DATESTAMP]
           )
@@ -35,11 +35,11 @@ module Merritt
         # Constructs a new {Record} wrapping the specified record.
         #
         # @param oai_record [OAI::Record] An OAI record as returned by `OAI::Client`
-        def from_oai_record(oai_record)
+        def from_oai(oai_record)
           raise ArgumentError, "can't parse nil record" unless oai_record
 
           identifier, datestamp = extract_headers(oai_record.header)
-          new Record(identifier: identifier, datestamp: datestamp)
+          Record.new(identifier: identifier, datestamp: datestamp)
         end
 
         private

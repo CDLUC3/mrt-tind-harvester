@@ -12,7 +12,7 @@ module Merritt
       def each
         return enum_for(:each) unless block_given?
 
-        @resp.each { |oai_record| yield Record.new(oai_record) }
+        @resp.each { |oai_record| yield Record.from_oai(oai_record) }
       end
 
       private
