@@ -104,10 +104,9 @@ module Merritt::TIND
 
       it 'rotates a file' do
         filename = File.join(tmpdir, 'file.bin')
-        msg = 'help I am trapped in a file lock factory'
         count = 5
         (0...count).each do |i|
-          Files.rotate_and_lock(filename) { |f| f.puts("#{i}. #{msg}") }
+          Files.rotate_and_lock(filename) { |f| f.puts(i) }
         end
 
         files = Dir.entries(tmpdir)
@@ -118,9 +117,13 @@ module Merritt::TIND
         files.sort! { |f1, f2| (f1 == filename) ? 1 : f1 <=> f2 }
 
         expect(files.size).to eq(count)
-        files.each_with_index do |f, i|
-          expected_content = "#{i}. #{msg}\n"
-          expect(File.read(f)).to eq(expected_content)
+        aggregate_failures "rotated file content" do
+          files.each_with_index do |f, i|
+            expected_content = "#{i}\n"
+            actual_content = File.read(f)
+            msg = "file #{i} (#{File.basename(f)}: expected '#{expected_content.strip}', got #{actual_content.strip}"
+            expect(actual_content).to eq(expected_content), msg
+          end
         end
       end
     end
