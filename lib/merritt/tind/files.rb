@@ -8,19 +8,19 @@ module Merritt
 
       class << self
 
-        def with_lock(filename, timeout_s = DEFAULT_TIMEOUT_SECS, sleep_s = DEFAULT_SLEEP_INTERVAL_SECS)
-          f = acquire_lock(filename, timeout_s, sleep_s)
+        def with_lock(filename, mode, timeout_s = DEFAULT_TIMEOUT_SECS, sleep_s = DEFAULT_SLEEP_INTERVAL_SECS)
+          f = acquire_lock(filename, mode, timeout_s, sleep_s)
           yield f
         ensure
-          f.flock(File::LOCK_UN)
+          f.flock(File::LOCK_UN) if f
         end
 
         private
 
-        def acquire_lock(filename, timeout_s, sleep_s)
+        def acquire_lock(filename, mode, timeout_s, sleep_s)
           Timeout.timeout(timeout_s) do
             loop do
-              f = File.open(filename, 'a+t')
+              f = File.open(filename, mode)
               f.flock(File::LOCK_EX)
               return f if File.identical?(filename, f)
 

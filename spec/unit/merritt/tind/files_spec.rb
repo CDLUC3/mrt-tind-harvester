@@ -18,7 +18,7 @@ module Merritt::TIND
         msg = 'help I am trapped in a file lock factory'
         filename = File.join(tmpdir, 'file.bin')
 
-        Files.with_lock(filename) { |f| f.puts(msg) }
+        Files.with_lock(filename, 'a+t') { |f| f.puts(msg) }
         expected_content = msg + "\n"
         actual_content = File.read(filename)
         expect(actual_content).to eq(expected_content)
@@ -29,7 +29,7 @@ module Merritt::TIND
         filename = File.join(tmpdir, 'file.bin')
         File.open(filename, 'w') { |f| f.puts(msg) }
 
-        Files.with_lock(filename) { |f| f.puts(msg) }
+        Files.with_lock(filename, 'a+t') { |f| f.puts(msg) }
         expected_content = "#{msg}\n#{msg}\n"
         actual_content = File.read(filename)
         expect(actual_content).to eq(expected_content)
@@ -41,7 +41,7 @@ module Merritt::TIND
         stopfile = File.join(tmpdir, 'stop.bin')
 
         locking_process_id = fork do
-          Files.with_lock(filename) do |_|
+          Files.with_lock(filename, 'a+t') do |_|
             File.open(startfile, 'w') { |f| f.puts('start') }
             loop { File.exist?(stopfile) ? break : sleep(0.1) }
           end
@@ -74,6 +74,21 @@ module Merritt::TIND
             f.flock(File::LOCK_UN)
           end
         end
+      end
+
+      it 'waits out renames' do
+        filename = File.join(tmpdir, 'file.bin')
+
+        locking_process_id = fork do
+          # timing an actual rename is too difficult, so just mock it to return first false,
+          # then true (can't use rspec doubles in subprocess so we monkey-patch)
+          def File.identical?(_, _)
+            @_monkey_patch_called || !(@_monkey_patch_called = true)
+          end
+          Files.with_lock(filename, 'a+t') { |_| exit(0) }
+        end
+        Process.wait(locking_process_id)
+        expect($CHILD_STATUS.exitstatus).to eq(0) # just to be sure
       end
     end
 
