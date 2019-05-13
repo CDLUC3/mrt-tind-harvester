@@ -109,10 +109,14 @@ module Merritt::TIND
         (0...count).each do |i|
           Files.rotate_and_lock(filename) { |f| f.puts("#{i}. #{msg}") }
         end
+
         files = Dir.entries(tmpdir)
           .map { |f| File.join(tmpdir, f) }
           .select { |f| File.file?(f) }
-          .sort_by { |f| File.stat(f).mtime }
+
+        # sort lexicographically (= by timestamp), except un-timestamped file to end
+        files.sort! { |f1, f2| (f1 == filename) ? 1 : f1 <=> f2 }
+
         expect(files.size).to eq(count)
         files.each_with_index do |f, i|
           expected_content = "#{i}. #{msg}\n"
