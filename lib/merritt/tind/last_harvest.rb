@@ -44,6 +44,7 @@ module Merritt
             newest_success: Record.from_hash(h[NEWEST_SUCCESS])
           )
         end
+
       end
     end
   end
