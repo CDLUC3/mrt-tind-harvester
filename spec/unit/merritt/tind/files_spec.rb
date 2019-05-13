@@ -15,21 +15,21 @@ module Merritt::TIND
 
     describe :with_lock do
       it 'creates a file' do
-        msg = 'help I am trapped in a file lock factory'
         filename = File.join(tmpdir, 'file.bin')
+        msg = 'help I am trapped in a file lock factory'
 
-        Files.with_lock(filename, 'a+t') { |f| f.puts(msg) }
+        Files.with_lock(filename) { |f| f.puts(msg) }
         expected_content = msg + "\n"
         actual_content = File.read(filename)
         expect(actual_content).to eq(expected_content)
       end
 
       it 'appends to an existing file' do
-        msg = 'help I am trapped in a file lock factory'
         filename = File.join(tmpdir, 'file.bin')
+        msg = 'help I am trapped in a file lock factory'
         File.open(filename, 'w') { |f| f.puts(msg) }
 
-        Files.with_lock(filename, 'a+t') { |f| f.puts(msg) }
+        Files.with_lock(filename) { |f| f.puts(msg) }
         expected_content = "#{msg}\n#{msg}\n"
         actual_content = File.read(filename)
         expect(actual_content).to eq(expected_content)
@@ -41,7 +41,7 @@ module Merritt::TIND
         stopfile = File.join(tmpdir, 'stop.bin')
 
         locking_process_id = fork do
-          Files.with_lock(filename, 'a+t') do |_|
+          Files.with_lock(filename) do |_|
             File.open(startfile, 'w') { |f| f.puts('start') }
             loop { File.exist?(stopfile) ? break : sleep(0.1) }
           end
@@ -85,10 +85,39 @@ module Merritt::TIND
           def File.identical?(_, _)
             @_monkey_patch_called || !(@_monkey_patch_called = true)
           end
-          Files.with_lock(filename, 'a+t') { |_| exit(0) }
+          Files.with_lock(filename) { |_| exit(0) }
         end
         Process.wait(locking_process_id)
         expect($CHILD_STATUS.exitstatus).to eq(0) # just to be sure
+      end
+    end
+
+    describe :rotate_and_lock do
+      it 'creates a file' do
+        filename = File.join(tmpdir, 'file.bin')
+        msg = 'help I am trapped in a file lock factory'
+        Files.rotate_and_lock(filename) { |f| f.puts(msg) }
+        expected_content = msg + "\n"
+        actual_content = File.read(filename)
+        expect(actual_content).to eq(expected_content)
+      end
+
+      it 'rotates a file' do
+        filename = File.join(tmpdir, 'file.bin')
+        msg = 'help I am trapped in a file lock factory'
+        count = 5
+        (0...count).each do |i|
+          Files.rotate_and_lock(filename) { |f| f.puts("#{i}. #{msg}") }
+        end
+        files = Dir.entries(tmpdir)
+          .map { |f| File.join(tmpdir, f) }
+          .select { |f| File.file?(f) }
+          .sort_by { |f| File.stat(f).mtime }
+        expect(files.size).to eq(count)
+        files.each_with_index do |f, i|
+          expected_content = "#{i}. #{msg}\n"
+          expect(File.read(f)).to eq(expected_content)
+        end
       end
     end
 
