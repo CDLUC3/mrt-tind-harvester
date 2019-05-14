@@ -1,22 +1,25 @@
 require 'spec_helper'
 require 'logger'
+require 'pathname'
 
 module Merritt
   module TIND
     describe Config do
 
+      attr_reader :logdev
+
+      before(:each) do
+        @logdev = instance_double(Logger::LogDevice)
+        allow(logdev).to receive(:write)
+        allow(Logger::LogDevice).to receive(:new)
+          .with('tind-harvester-test.log', hash_including(shift_age: Logging::NUM_LOG_FILES))
+          .and_return(logdev)
+      end
+
       describe :from_file do
         it 'constructs a valid config' do
-          logdev = instance_double(Logger::LogDevice)
-          allow(logdev).to receive(:write)
-          expect(Logger::LogDevice).to receive(:new)
-            .with(
-              'tind-harvester-test.log',
-              hash_including(shift_age: Logging::NUM_LOG_FILES)
-            )
-            .and_return(logdev)
-
           config = Config.from_file('spec/data/tind-harvester-config.yml')
+
           harvester = config.new_harvester
           expect(harvester.base_url).to eq('https://tind.example.edu/oai2d')
           expect(harvester.set).to eq('calher130')
@@ -26,6 +29,23 @@ module Merritt
           msg = 'help I am trapped in a logging factory'
           expect(logdev).to receive(:write).with(match(/[0-9TZ:+-]+\tWARN\t#{msg}/))
           log.warn(msg)
+        end
+
+        it 'accepts a pathname' do
+          filename = 'spec/data/tind-harvester-config.yml'
+          from_file = Config.from_file(filename)
+          pathname = Pathname.new(filename)
+          from_path = Config.from_file(pathname)
+          expect(from_path.config_h).to eq(from_file.config_h)
+        end
+      end
+
+      describe :last_harvest do
+        it 'reads a relative path' do
+          expected = LastHarvest.from_file('spec/data/last_tind_harvest.yml')
+          actual = Config.from_file('spec/data/tind-harvester-config.yml').last_harvest
+          expect(actual).not_to be_nil
+          expect(actual.to_h).to eq(expected.to_h)
         end
       end
 

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pathname'
 require 'tempfile'
 require 'time'
 
@@ -16,6 +17,26 @@ module Merritt::TIND
         expect(ns).not_to(be_nil)
         expect(ns.identifier).to eq('oai:berkeley-test.tind.io:5565')
         expect(ns.datestamp).to eq(Time.utc(2019, 4, 23, 13, 35, 57))
+      end
+
+      it 'accepts a pathname' do
+        filename = 'spec/data/last_tind_harvest.yml'
+        from_file = LastHarvest.from_file(filename)
+        pathname = Pathname.new(filename)
+        from_path = LastHarvest.from_file(pathname)
+        expect(from_path.to_h).to eq(from_file.to_h)
+      end
+
+      it 'returns nil for a nonexistent file' do
+        Dir.mktmpdir('last_harvest_spec') do |d|
+          nonexistent_file = File.join(d, 'nonexistent-file.yml')
+          expect(File.exist?(nonexistent_file)).to eq(false) # just to be sure
+          expect(LastHarvest.from_file(nonexistent_file)).to be_nil
+        end
+      end
+
+      it 'returns nil for a nil file' do
+        expect(LastHarvest.from_file(nil)).to be_nil
       end
     end
 

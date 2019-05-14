@@ -33,6 +33,10 @@ module Merritt
 
       class << self
         def from_file(last_harvest_yml)
+          # A missing last_yarvest.yml is normal
+          return nil unless last_harvest_yml
+          return nil unless File.exist?(last_harvest_yml)
+
           h = YAML.load_file(last_harvest_yml)
           from_hash(h)
         end
