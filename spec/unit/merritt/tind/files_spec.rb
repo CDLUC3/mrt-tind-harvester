@@ -114,10 +114,13 @@ module Merritt::TIND
           .select { |f| File.file?(f) }
 
         # sort lexicographically (= by timestamp), except un-timestamped file to end
-        files.sort! { |f1, f2| (f1 == filename) ? 1 : f1 <=> f2 }
+        files.sort! do |f1, f2|
+          i = [f1, f2].index(filename)
+          i.nil? ? f1 <=> f2 : 1 - 2 * i
+        end
 
         expect(files.size).to eq(count)
-        aggregate_failures "rotated file content" do
+        aggregate_failures 'rotated file content' do
           files.each_with_index do |f, i|
             expected_content = "#{i}\n"
             actual_content = File.read(f)
