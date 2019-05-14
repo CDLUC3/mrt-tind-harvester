@@ -26,8 +26,7 @@ module Merritt
       end
 
       def write_to(last_harvest_yml)
-        # TODO: rotation?
-        File.open(last_harvest_yml, 'w') do |f|
+        Files.rotate_and_lock(last_harvest_yml) do |f|
           f.write(to_h.to_yaml)
         end
       end

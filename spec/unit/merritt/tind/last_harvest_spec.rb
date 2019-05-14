@@ -45,7 +45,7 @@ module Merritt::TIND
         expect(round_trip.to_h).to eq(last_harvest.to_h)
       end
 
-      skip 'rotates existing files' do
+      it 'rotates existing files' do
         expect(Dir.empty?(tmpdir)).to eq(true) # just to be sure
 
         file = File.join(tmpdir, 'last_tind_harvest.yml')
@@ -59,6 +59,8 @@ module Merritt::TIND
 
         entries = Dir.entries(tmpdir).select { |f| File.file?(File.join(tmpdir, f)) }
         expect(entries.size).to eq(2)
+
+        # TODO: check content of rotated and latest file
       end
     end
   end
