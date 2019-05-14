@@ -80,6 +80,8 @@ module Merritt::TIND
         filename = File.join(tmpdir, 'file.bin')
 
         locking_process_id = fork do
+          # noinspection RubyGlobalVariableNamingConvention
+          $VERBOSE = nil
           # timing an actual rename is too difficult, so just mock it to return first false,
           # then true (can't use rspec doubles in subprocess so we monkey-patch)
           def File.identical?(_, _)
