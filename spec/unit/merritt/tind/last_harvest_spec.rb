@@ -48,19 +48,28 @@ module Merritt::TIND
       it 'rotates existing files' do
         expect(Dir.empty?(tmpdir)).to eq(true) # just to be sure
 
-        file = File.join(tmpdir, 'last_tind_harvest.yml')
-        last_harvest.write_to(file)
+        filename = File.join(tmpdir, 'last_tind_harvest.yml')
+        last_harvest.write_to(filename)
 
         time_now = Time.now
         oldest_failed = Record.new(identifier: 'oldest-failed-record', datestamp: time_now - DAY_SECONDS)
         newest_success = Record.new(identifier: 'newest-success-record', datestamp: time_now)
         next_harvest = LastHarvest.new(oldest_failed: oldest_failed, newest_success: newest_success)
-        next_harvest.write_to(file)
+        next_harvest.write_to(filename)
 
-        entries = Dir.entries(tmpdir).select { |f| File.file?(File.join(tmpdir, f)) }
+        entries = Dir.entries(tmpdir)
+          .map { |f| File.join(tmpdir, f) }
+          .select { |f| File.file?(f) }
+
         expect(entries.size).to eq(2)
+        expect(entries).to include(filename)
+        entries.delete(filename)
 
-        # TODO: check content of rotated and latest file
+        rotated_file = entries[0]
+        expect(LastHarvest.from_file(rotated_file).to_h).to eq(last_harvest.to_h)
+
+        latest_file = filename
+        expect(LastHarvest.from_file(latest_file).to_h).to eq(next_harvest.to_h)
       end
     end
   end
