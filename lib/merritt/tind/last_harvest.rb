@@ -31,14 +31,20 @@ module Merritt
         end
       end
 
+      def oldest_failed_datestamp
+        oldest_failed && oldest_failed.datestamp
+      end
+
+      def newest_success_datestamp
+        newest_success && newest_success.datestamp
+      end
+
       class << self
         def from_file(last_harvest_yml)
-          # A missing last_yarvest.yml is normal
-          return nil unless last_harvest_yml
-          return nil unless File.exist?(last_harvest_yml)
+          return from_hash(YAML.load_file(last_harvest_yml)) if last_harvest_yml && File.exist?(last_harvest_yml)
 
-          h = YAML.load_file(last_harvest_yml)
-          from_hash(h)
+          # A missing last_yarvest.yml is normal
+          LastHarvest.new
         end
 
         def from_hash(h)

@@ -27,16 +27,20 @@ module Merritt::TIND
         expect(from_path.to_h).to eq(from_file.to_h)
       end
 
-      it 'returns nil for a nonexistent file' do
+      it 'returns empty for a nonexistent file' do
         Dir.mktmpdir('last_harvest_spec') do |d|
           nonexistent_file = File.join(d, 'nonexistent-file.yml')
           expect(File.exist?(nonexistent_file)).to eq(false) # just to be sure
-          expect(LastHarvest.from_file(nonexistent_file)).to be_nil
+          lh = LastHarvest.from_file(nonexistent_file)
+          expect(lh.oldest_failed).to be_nil
+          expect(lh.newest_success).to be_nil
         end
       end
 
-      it 'returns nil for a nil file' do
-        expect(LastHarvest.from_file(nil)).to be_nil
+      it 'returns empty for a nil file' do
+        lh = LastHarvest.from_file(nil)
+        expect(lh.oldest_failed).to be_nil
+        expect(lh.newest_success).to be_nil
       end
     end
 

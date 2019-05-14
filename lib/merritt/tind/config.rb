@@ -28,8 +28,11 @@ module Merritt
       end
 
       def new_harvester
-        logger = Logging.new_logger(config_h['log_path'], config_h['log_level'])
-        Harvester.new(base_url, set, logger)
+        Harvester.new(base_url, set, log)
+      end
+
+      def log
+        @log ||= Logging.new_logger(config_h['log_path'], config_h['log_level'])
       end
 
       private
