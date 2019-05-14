@@ -30,10 +30,6 @@ module Merritt
         @harvester ||= config.new_harvester
       end
 
-      def log
-        config.log
-      end
-
       def last_harvest
         config.last_harvest
       end
