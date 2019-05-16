@@ -1,3 +1,4 @@
+require 'mrt/ingest'
 require 'ostruct'
 
 module Merritt
@@ -33,19 +34,6 @@ module Merritt
 
       private
 
-      EXISTING_OBJECT_SQL = <<~SQL.freeze
-            SELECT inv_objects.*
-              FROM inv_objects
-        INNER JOIN inv_collections_inv_objects
-                ON inv_collections_inv_objects.inv_object_id = inv_objects.id
-        INNER JOIN inv_collections
-                ON inv_collections.id = inv_collections_inv_objects.inv_collection_id
-             WHERE (erc_where LIKE '%?%')
-               AND inv_collections.ark = ?
-          ORDER BY inv_objects.id ASC
-             LIMIT 1
-      SQL
-
       def log
         config.log
       end
@@ -55,18 +43,9 @@ module Merritt
       end
 
       def find_existing_object
-        collection_ark = config.collection_ark
-        primary_local_id = local_id
-        result = existing_object_stmt.execute(primary_local_id, collection_ark).first
-        return nil unless result
-
-        OpenStruct.new(result)
+        config.find_existing_object(local_id)
       end
 
-      # TODO: move this to Config (?) so we can re-use it per record
-      def existing_object_stmt
-        @existing_object_stmt ||= db_connection.prepare(EXISTING_OBJECT_SQL)
-      end
     end
   end
 end
