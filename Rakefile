@@ -34,6 +34,11 @@ require 'rubocop/rake_task'
 RuboCop::RakeTask.new
 
 # ------------------------------------------------------------
+# Standalone Migrations
+require 'standalone_migrations'
+StandaloneMigrations::Tasks.load_tasks
+
+# ------------------------------------------------------------
 # Defaults
 
 desc 'Run unit tests, check test coverage, run acceptance tests, check code style'

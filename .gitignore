@@ -1,7 +1,12 @@
 #### Custom ignores ####
 
+.config-secret
+
 # github-markdown-preview previews
 *.md.html
+
+# IDEA code coverage
+/out
 
 #### Generated ignores ####
 
@@ -191,7 +196,8 @@ flycheck_*.el
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
