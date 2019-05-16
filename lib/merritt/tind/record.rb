@@ -16,6 +16,15 @@ module Merritt
         @dc_identifiers = dc_identifiers
       end
 
+      # TODO: something smarter when we know the real requirements
+      # :nocov:
+      def content_url
+        dc_identifiers.find do |dc_id|
+          dc_id.start_with?('http') && dc_id.end_with?('jpg')
+        end
+      end
+      # :nocov:
+
       def to_h
         { IDENTIFIER => identifier, DATESTAMP => datestamp, DC_IDENTIFIERS => dc_identifiers }
       end
