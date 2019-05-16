@@ -6,16 +6,18 @@ module Merritt
     class Record
       IDENTIFIER = 'identifier'.freeze
       DATESTAMP = 'datestamp'.freeze
+      DC_IDENTIFIERS = 'dc_identifiers'.freeze
 
-      attr_reader :identifier, :datestamp
+      attr_reader :identifier, :datestamp, :dc_identifiers
 
-      def initialize(identifier:, datestamp:)
+      def initialize(identifier:, datestamp:, dc_identifiers:)
         @identifier = identifier
         @datestamp = datestamp
+        @dc_identifiers = dc_identifiers
       end
 
       def to_h
-        { IDENTIFIER => identifier, DATESTAMP => datestamp }
+        { IDENTIFIER => identifier, DATESTAMP => datestamp, DC_IDENTIFIERS => dc_identifiers }
       end
 
       class << self
@@ -25,7 +27,8 @@ module Merritt
 
           Record.new(
             identifier: h[IDENTIFIER],
-            datestamp: h[DATESTAMP]
+            datestamp: h[DATESTAMP],
+            dc_identifiers: h[DC_IDENTIFIERS]
           )
         end
 
@@ -35,11 +38,17 @@ module Merritt
         def from_oai(oai_record)
           raise ArgumentError, "can't parse nil record" unless oai_record
 
+          # TODO: parse 'real' identifier out of Dublin Core?
           identifier, datestamp = extract_headers(oai_record.header)
-          Record.new(identifier: identifier, datestamp: datestamp)
+          dc_id = extract_dc_ids(oai_record.metadata)
+          Record.new(identifier: identifier, datestamp: datestamp, dc_identifiers: dc_id)
         end
 
         private
+
+        def extract_dc_ids(metadata)
+          REXML::XPath.match(metadata, './/dc:identifier').map(&:text)
+        end
 
         def extract_headers(header)
           [

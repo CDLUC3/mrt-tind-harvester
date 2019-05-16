@@ -34,6 +34,20 @@ module Merritt::TIND
           expected = Time.utc(2019, 4, 23, 13, 45, 23)
           expect(record.datestamp).to eq(expected)
         end
+
+        it 'extracts Dublin Core IDs' do
+          expected = [
+            'BANC PIC 19xx.069:02--ffALB',
+            'http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955',
+            'http://berkeley-test.tind.io/record/5542/files/I0025874A.jpg',
+            'http://berkeley-test.tind.io/record/5542'
+          ]
+          actual = record.dc_identifiers
+          expect(actual.size).to eq(expected.size)
+          actual.each_with_index do |actual_id, i|
+            expect(actual_id).to eq(expected[i])
+          end
+        end
       end
     end
   end
