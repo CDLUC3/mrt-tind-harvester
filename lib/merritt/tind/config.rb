@@ -16,11 +16,15 @@ module Merritt
       end
 
       def base_url
-        @base_url ||= config_h['base_url']
+        config_h['base_url']
+      end
+
+      def collection
+        config_h['collection']
       end
 
       def set
-        @set ||= config_h['set']
+        config_h['set']
       end
 
       def last_harvest
@@ -28,7 +32,7 @@ module Merritt
       end
 
       def new_harvester
-        Harvester.new(base_url, set, log)
+        Harvester.new(self)
       end
 
       def log

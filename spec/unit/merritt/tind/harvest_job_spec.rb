@@ -25,7 +25,7 @@ module Merritt::TIND
 
         config = job.config
         @harvester = instance_double(Harvester)
-        allow(Harvester).to receive(:new).with(config.base_url, config.set, config.log).and_return(harvester)
+        allow(Harvester).to receive(:new).with(config).and_return(harvester)
       end
 
       it 'defaults to harvesting all records' do

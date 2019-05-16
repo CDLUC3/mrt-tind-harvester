@@ -2,14 +2,25 @@ require 'spec_helper'
 
 module Merritt::TIND
   describe Harvester do
+    attr_reader :config
+
+    def config_h
+      config.instance_variable_get(:@config_h)
+    end
+
+    before(:each) do
+      @config = Config.new
+    end
+
     describe 'invalid' do
       it 'requires a URL' do
-        expect { Harvester.new(nil, nil) }.to raise_error(URI::InvalidURIError)
+        expect { Harvester.new(config) }.to raise_error(URI::InvalidURIError)
       end
 
       it 'requires a valid URL' do
         bad_url = 'http://not a hostname/oai2d'
-        expect { Harvester.new(bad_url, nil) }.to raise_error(URI::InvalidURIError)
+        config_h['base_url'] = bad_url
+        expect { Harvester.new(config) }.to raise_error(URI::InvalidURIError)
       end
     end
 
@@ -21,7 +32,9 @@ module Merritt::TIND
       before(:each) do
         @base_url = 'https://tind.example.edu/oai2d'
         @set = 'calher130'
-        @harvester = Harvester.new(base_url, set)
+        config_h['base_url'] = base_url
+        config_h['set'] = set
+        @harvester = Harvester.new(config)
       end
 
       describe(:harvest) do

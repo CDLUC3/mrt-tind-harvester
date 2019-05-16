@@ -7,27 +7,38 @@ module Merritt
   module TIND
     class Harvester
 
-      DEFAULT_LOG_LEVEL = Logger::DEBUG
-      NUM_LOG_FILES = 10
+      attr_reader :config
+      attr_reader :client
 
-      attr_reader :base_url
-      attr_reader :set
-      attr_reader :log
+      def initialize(config)
+        raise ArgumentError, 'config cannot be nil' unless config
 
-      def initialize(base_url, set, logger = nil)
-        @log = logger || Logging.new_logger
-        log.info("initializing harvester for base URL #{base_url}, set #{set ? "'#{set}'" : '<nil>'}")
-
-        @base_url = base_url
-        @set = set
+        @config = config
+        log.info("initializing harvester for base URL #{base_url}, set #{set ? "'#{set}'" : '<nil>'} => collection #{collection}")
         @client = Harvester.oai_client_for(base_url)
       end
 
       def harvest(from_time: nil, until_time: nil)
         opts = to_opts(from_time, until_time)
         log.info("harvesting #{query_url(opts)}")
-        resp = @client.list_records(opts)
+        resp = client.list_records(opts)
         Feed.new(resp)
+      end
+
+      def set
+        config.set
+      end
+
+      def base_url
+        config.base_url
+      end
+
+      def collection
+        config.collection
+      end
+
+      def log
+        config.log
       end
 
       private
@@ -45,7 +56,7 @@ module Merritt
         {
           from: from_time && from_time.iso8601,
           until: until_time && until_time.iso8601,
-          set: @set
+          set: set
         }.compact
       end
 
