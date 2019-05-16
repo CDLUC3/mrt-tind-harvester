@@ -25,6 +25,13 @@ module Merritt
       end
       # :nocov:
 
+      # TODO: something smarter when we know the real requirements
+      # :nocov:
+      def local_id
+        identifier
+      end
+      # :nocov:
+
       def to_h
         { IDENTIFIER => identifier, DATESTAMP => datestamp, DC_IDENTIFIERS => dc_identifiers }
       end

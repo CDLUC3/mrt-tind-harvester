@@ -1,8 +1,8 @@
 test:
-  collection: ark:/13030/m5vd6wc7
-  database_config: ../../.config-travis/database.yml
+  collection_ark: ark:/13030/m5vd6wc7
   base_url: https://tind.example.edu/oai2d
   set: calher130
   log_level: info
   log_path: tind-harvester-test.log
   last_harvest: last_tind_harvest.yml
+  database: ../../.config-travis/database.yml

@@ -11,8 +11,11 @@ module Merritt
 
       def process_feed!(from_time: nil, until_time: nil)
         from_time = determine_from_time(from_time)
-        harvester.harvest(from_time: from_time, until_time: until_time)
-        # TODO: iterate over records and index into merritt
+        feed = harvester.harvest(from_time: from_time, until_time: until_time)
+        feed.each do |r|
+          record_processor = RecordProcessor.new(record: r, config: config)
+          record_processor.process_record!
+        end
       end
 
       private

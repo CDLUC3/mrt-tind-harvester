@@ -1,4 +1,5 @@
 require 'logger'
+require 'mysql2/client'
 require 'pathname'
 require 'time'
 require 'yaml'
@@ -19,8 +20,8 @@ module Merritt
         config_h['base_url']
       end
 
-      def collection
-        config_h['collection']
+      def collection_ark
+        config_h['collection_ark']
       end
 
       def set
@@ -35,21 +36,45 @@ module Merritt
         Harvester.new(self)
       end
 
+      def db_connection
+        @db_connection ||= begin
+          raise "Can't connect to nil database" unless db_config_path
+          raise ArgumentError, "Specified database config #{db_config_path} does not exist" unless File.exist?(db_config_path)
+
+          db_config = YAML.load_file(db_config_path)
+          env_db_config = db_config[Config.environment]
+          Mysql2::Client.new(env_db_config)
+        end
+      end
+
       def log
         @log ||= Logging.new_logger(config_h['log_path'], config_h['log_level'])
       end
 
       private
 
+      def db_config_path
+        @db_config_path ||= begin
+          db = config_h['database']
+          resolve_relative_path(db)
+        end
+      end
+
       def last_harvest_path
-        lh = config_h['last_harvest']
-        return nil unless lh
+        @last_harvest_path ||= begin
+          lh = config_h['last_harvest']
+          resolve_relative_path(lh)
+        end
+      end
 
-        lh_path = Pathname.new(lh)
-        return lh_path if lh_path.absolute?
-        return lh_path unless config_path
+      def resolve_relative_path(filename)
+        return nil unless filename
 
-        (config_path.parent + lh_path).realpath
+        pathname = Pathname.new(filename)
+        return pathname if pathname.absolute?
+        return pathname unless config_path
+
+        (config_path.parent + pathname).realpath
       end
 
       class << self

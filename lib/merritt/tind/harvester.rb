@@ -14,7 +14,7 @@ module Merritt
         raise ArgumentError, 'config cannot be nil' unless config
 
         @config = config
-        log.info("initializing harvester for base URL #{base_url}, set #{set ? "'#{set}'" : '<nil>'} => collection #{collection}")
+        log.info("initializing harvester for base URL #{base_url}, set #{set ? "'#{set}'" : '<nil>'} => collection #{collection_ark}")
         @client = Harvester.oai_client_for(base_url)
       end
 
@@ -33,8 +33,8 @@ module Merritt
         config.base_url
       end
 
-      def collection
-        config.collection
+      def collection_ark
+        config.collection_ark
       end
 
       def log

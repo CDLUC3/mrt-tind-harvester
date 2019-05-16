@@ -23,7 +23,7 @@ module Merritt
           harvester = config.new_harvester
           expect(harvester.base_url).to eq('https://tind.example.edu/oai2d')
           expect(harvester.set).to eq('calher130')
-          expect(harvester.collection).to eq('ark:/13030/m5vd6wc7')
+          expect(harvester.collection_ark).to eq('ark:/13030/m5vd6wc7')
           log = harvester.log
           expect(log.level).to eq(Logger::INFO)
 
