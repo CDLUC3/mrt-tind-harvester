@@ -30,16 +30,17 @@ module Merritt
       private
 
       EXISTING_OBJECT_SQL = <<~SQL.freeze
-            SELECT inv_objects.*
-              FROM inv_objects
-        INNER JOIN inv_collections_inv_objects
-                ON inv_collections_inv_objects.inv_object_id = inv_objects.id
-        INNER JOIN inv_collections
-                ON inv_collections.id = inv_collections_inv_objects.inv_collection_id
-             WHERE (erc_where LIKE '%?%')
-               AND inv_collections.ark = ?
-          ORDER BY inv_objects.id ASC
-             LIMIT 1
+        SELECT inv_objects.*
+          FROM inv_objects
+          JOIN inv_collections_inv_objects
+            ON inv_collections_inv_objects.inv_object_id = inv_objects.id
+          JOIN inv_collections
+            ON inv_collections.id = inv_collections_inv_objects.inv_collection_id
+          JOIN inv_localids
+            ON inv_localids.inv_object_ark = inv_objects.ark
+         WHERE inv_localids.local_id = ?
+           AND inv_collections.ark = ?
+        LIMIT 1
       SQL
 
       def existing_object_stmt

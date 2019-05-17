@@ -25,6 +25,14 @@ module Merritt
         merritt_config_h['collection_ark']
       end
 
+      def mrt_ingest_url
+        merritt_config_h['ingest_url']
+      end
+
+      def mrt_ingest_profile
+        merritt_config_h['ingest_profile']
+      end
+
       def db_config_path
         @db_config_path ||= begin
           db = merritt_config_h['database']

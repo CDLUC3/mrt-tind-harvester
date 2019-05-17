@@ -6,6 +6,8 @@ test:
   merritt:
     collection_ark: ark:/13030/m5vd6wc7
     database: ../../.config-travis/database.yml # TODO: set explicitly in test
+    ingest_url: http://merritt.example.edu/object/ingest
+    ingest_profile: ucb_lib_bancroft_content
   log:
     file: tind-harvester-test.log
     level: info

@@ -48,6 +48,13 @@ module Merritt::TIND
             expect(actual_id).to eq(expected[i])
           end
         end
+
+        it 'extracts Dublin Core dates' do
+          expected = Time.utc(2019, 4, 12, 20, 28, 4)
+          actual = record.dc_dates
+          expect(actual.size).to eq(1)
+          expect(actual[0]).to eq(expected)
+        end
       end
     end
   end

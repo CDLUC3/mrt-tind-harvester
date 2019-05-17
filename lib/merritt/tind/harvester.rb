@@ -24,10 +24,14 @@ module Merritt
       def process_feed!(from_time: nil, until_time: nil)
         from_time = determine_from_time(from_time)
         feed = harvest(from_time: from_time, until_time: until_time)
+        server = Mrt::Ingest::OneTimeServer.new
+        server.start_server
         feed.each do |r|
-          record_processor = RecordProcessor.new(r, self)
+          record_processor = RecordProcessor.new(r, self, server)
           record_processor.process_record!
         end
+      ensure
+        server.join_server
       end
 
       def harvest(from_time: nil, until_time: nil)
@@ -53,8 +57,17 @@ module Merritt
         config.mrt_collection_ark
       end
 
+      def mrt_ingest_profile
+        config.mrt_ingest_profile
+      end
+
       def mrt_inv_db
         @mrt_inv_db ||= InventoryDB.from_file(config.db_config_path)
+      end
+
+      def mrt_ingest_client
+        # TODO: secure way to get username and password?
+        @mrt_ingest_client ||= Mrt::Ingest::Client.new(mrt_ingest_url)
       end
 
       def log

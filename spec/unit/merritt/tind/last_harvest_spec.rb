@@ -47,31 +47,14 @@ module Merritt::TIND
     describe :write_to do
       attr_reader :tmpdir
       attr_reader :last_harvest
-      attr_reader :failed_ids
-      attr_reader :success_ids
 
       DAY_SECONDS = 86_400
 
       before :each do
         @tmpdir = Dir.mktmpdir('last_harvest_spec')
-
-        @failed_ids = [
-          'BANC PIC 19xx.069:02--ffALB',
-          'http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955',
-          'http://berkeley-test.tind.io/record/5542/files/I0025874A.jpg',
-          'http://berkeley-test.tind.io/record/5542'
-        ]
-
-        @success_ids = [
-          'BANC PIC 19xx.069:25--ffALB',
-          'http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955',
-          'http://berkeley-test.tind.io/record/5565/files/I0025897A.jpg',
-          'http://berkeley-test.tind.io/record/5565'
-        ]
-
         time_now = Time.now
-        oldest_failed = Record.new(identifier: 'oldest-failed-record', datestamp: time_now - DAY_SECONDS, dc_identifiers: failed_ids)
-        newest_success = Record.new(identifier: 'newest-success-record', datestamp: time_now, dc_identifiers: success_ids)
+        oldest_failed = Record.new(identifier: 'oldest-failed-record', datestamp: time_now - DAY_SECONDS)
+        newest_success = Record.new(identifier: 'newest-success-record', datestamp: time_now)
         @last_harvest = LastHarvest.new(oldest_failed: oldest_failed, newest_success: newest_success)
       end
 
@@ -93,8 +76,8 @@ module Merritt::TIND
         last_harvest.write_to(filename)
 
         time_now = Time.now
-        oldest_failed = Record.new(identifier: 'oldest-failed-record', datestamp: time_now - DAY_SECONDS, dc_identifiers: failed_ids)
-        newest_success = Record.new(identifier: 'newest-success-record', datestamp: time_now, dc_identifiers: success_ids)
+        oldest_failed = Record.new(identifier: 'oldest-failed-record', datestamp: time_now - DAY_SECONDS)
+        newest_success = Record.new(identifier: 'newest-success-record', datestamp: time_now)
         next_harvest = LastHarvest.new(oldest_failed: oldest_failed, newest_success: newest_success)
         next_harvest.write_to(filename)
 

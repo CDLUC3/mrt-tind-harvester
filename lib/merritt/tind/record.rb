@@ -6,34 +6,65 @@ module Merritt
     class Record
       IDENTIFIER = 'identifier'.freeze
       DATESTAMP = 'datestamp'.freeze
-      DC_IDENTIFIERS = 'dc_identifiers'.freeze
 
-      attr_reader :identifier, :datestamp, :dc_identifiers
+      attr_reader :identifier
+      attr_reader :datestamp
+      attr_reader :metadata
 
-      def initialize(identifier:, datestamp:, dc_identifiers:)
+      def initialize(identifier:, datestamp:, oai_metadata: nil)
         @identifier = identifier
         @datestamp = datestamp
-        @dc_identifiers = dc_identifiers
+        @metadata = oai_metadata
       end
 
-      # TODO: something smarter when we know the real requirements
-      # :nocov:
-      def content_url
-        dc_identifiers.find do |dc_id|
-          dc_id.start_with?('http') && dc_id.end_with?('jpg')
+      def erc
+        # TODO: figure out real values
+        {
+          'where' => local_id,
+          'what' => local_id,
+          'when' => record.dc_dates.first || record.datestamp,
+          'when/created' => record.dc_dates.first || record.datestamp,
+          'when/modified' => record.datestamp
+        }
+      end
+
+      def dc_identifiers
+        @dc_identifiers ||= REXML::XPath.match(metadata, './/dc:identifier').map(&:text)
+      end
+
+      def dc_dates
+        @dc_dates ||= begin
+          REXML::XPath.match(metadata, './/dc:date')
+            .map(&:text)
+            .map { |t| Time.parse(t) }
         end
       end
-      # :nocov:
 
-      # TODO: something smarter when we know the real requirements
-      # :nocov:
+      def dc_titles
+        @dc_title ||= REXML::XPath.match(metadata, './/dc:title').map(&:text)
+      end
+
+      def dc_creators
+        @dc_creator ||= REXML::XPath.match(metadata, './/dc:creator').map(&:text)
+      end
+
+      def content_uri
+        @content_uri ||= begin
+          # TODO: something smarter when we know the real requirements
+          content_url = dc_identifiers.find do |dc_id|
+            dc_id.start_with?('http') && dc_id.end_with?('jpg')
+          end
+          content_url && URI.parse(content_url)
+        end
+      end
+
       def local_id
+        # TODO: something smarter when we know the real requirements
         identifier
       end
-      # :nocov:
 
       def to_h
-        { IDENTIFIER => identifier, DATESTAMP => datestamp, DC_IDENTIFIERS => dc_identifiers }
+        { IDENTIFIER => identifier, DATESTAMP => datestamp }
       end
 
       class << self
@@ -41,11 +72,7 @@ module Merritt
         def from_hash(h)
           return unless h
 
-          Record.new(
-            identifier: h[IDENTIFIER],
-            datestamp: h[DATESTAMP],
-            dc_identifiers: h[DC_IDENTIFIERS]
-          )
+          Record.new(identifier: h[IDENTIFIER], datestamp: h[DATESTAMP])
         end
 
         # Constructs a new {Record} wrapping the specified record.
@@ -54,24 +81,12 @@ module Merritt
         def from_oai(oai_record)
           raise ArgumentError, "can't parse nil record" unless oai_record
 
-          # TODO: parse 'real' identifier out of Dublin Core?
-          identifier, datestamp = extract_headers(oai_record.header)
-          dc_id = extract_dc_ids(oai_record.metadata)
-          Record.new(identifier: identifier, datestamp: datestamp, dc_identifiers: dc_id)
+          header = oai_record.header
+          identifier = header.identifier
+          datestamp = header.datestamp && Time.parse(header.datestamp)
+          Record.new(identifier: identifier, datestamp: datestamp, oai_metadata: oai_record.metadata)
         end
 
-        private
-
-        def extract_dc_ids(metadata)
-          REXML::XPath.match(metadata, './/dc:identifier').map(&:text)
-        end
-
-        def extract_headers(header)
-          [
-            header.identifier,
-            header.datestamp && Time.parse(header.datestamp)
-          ]
-        end
       end
     end
   end
