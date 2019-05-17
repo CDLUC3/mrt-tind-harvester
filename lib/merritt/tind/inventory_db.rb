@@ -31,16 +31,16 @@ module Merritt
       private
 
       EXISTING_OBJECT_SQL = <<~SQL.freeze
-        SELECT inv_objects.*
-          FROM inv_objects
-          JOIN inv_collections_inv_objects
-            ON inv_collections_inv_objects.inv_object_id = inv_objects.id
-          JOIN inv_collections
-            ON inv_collections.id = inv_collections_inv_objects.inv_collection_id
-          JOIN inv_localids
-            ON inv_localids.inv_object_ark = inv_objects.ark
-         WHERE inv_localids.local_id = ?
-           AND inv_collections.ark = ?
+        SELECT o.*
+          FROM inv_objects AS o
+               JOIN inv_collections_inv_objects AS co
+                 ON co.inv_object_id = o.id
+               JOIN inv_collections AS c
+                 ON c.id = co.inv_collection_id
+               JOIN inv_localids AS li
+                 ON li.inv_object_ark = o.ark
+         WHERE li.local_id = ?
+           AND c.ark = ?
         LIMIT 1
       SQL
 
