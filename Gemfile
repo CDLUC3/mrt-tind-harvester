@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'mrt-ingest', '~> 0.0.4'
+gem 'mrt-ingest', '~> 0.0.5'
 gem 'mysql2', '~> 0.4.0' # TODO: update to 0.5 when UI does
 gem 'nokogiri', '~> 1.10'
 gem 'oai', '~> 0.4'

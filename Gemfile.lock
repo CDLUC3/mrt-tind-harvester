@@ -70,7 +70,7 @@ GEM
     mime-types-data (3.2019.0331)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    mrt-ingest (0.0.4)
+    mrt-ingest (0.0.5)
       json (~> 2.0)
       rest-client (~> 2.0)
     multipart-post (2.0.0)
@@ -166,7 +166,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano (~> 3.4)
   capistrano-bundler (~> 1.1)
-  mrt-ingest (~> 0.0.4)
+  mrt-ingest (~> 0.0.5)
   mysql2 (~> 0.4.0)
   nokogiri (~> 1.10)
   oai (~> 0.4)

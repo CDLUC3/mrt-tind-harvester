@@ -45,7 +45,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mime-types-data (v3.2019.0331, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mini_portile2 (v2.4.0, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.11.3, RVM: ruby-2.4.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="mrt-ingest (v0.0.4, RVM: ruby-2.4.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mrt-ingest (v0.0.5, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multipart-post (v2.0.0, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mysql2 (v0.4.10, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-scp (v2.0.0, RVM: ruby-2.4.4) [gem]" level="application" />
