@@ -13,33 +13,33 @@ module Merritt
         @config_path = Pathname.new(config_yml).realpath if config_yml
       end
 
-      def base_url
-        config_h['base_url']
+      def oai_base_url
+        oai_config_h['base_url']
       end
 
-      def collection_ark
-        config_h['collection_ark']
+      def oai_set
+        oai_config_h['set']
       end
 
-      def set
-        config_h['set']
-      end
-
-      def log_level
-        config_h['log_level']
-      end
-
-      def log_path
-        @log_path ||= begin
-          lp = config_h['log_path']
-          resolve_relative_path(lp)
-        end
+      def mrt_collection_ark
+        merritt_config_h['collection_ark']
       end
 
       def db_config_path
         @db_config_path ||= begin
-          db = config_h['database']
+          db = merritt_config_h['database']
           resolve_relative_path(db)
+        end
+      end
+
+      def log_level
+        log_config_h['level']
+      end
+
+      def log_path
+        @log_path ||= begin
+          lp = log_config_h['file']
+          resolve_relative_path(lp)
         end
       end
 
@@ -51,6 +51,18 @@ module Merritt
       end
 
       private
+
+      def oai_config_h
+        config_h['oai'] || {}
+      end
+
+      def merritt_config_h
+        config_h['merritt'] || {}
+      end
+
+      def log_config_h
+        config_h['log'] || {}
+      end
 
       def resolve_relative_path(filename)
         return nil unless filename

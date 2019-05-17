@@ -6,6 +6,7 @@ module Merritt
 
       def initialize(db_config_h)
         @db_connection = Mysql2::Client.new(db_config_h)
+        @collection_ark = collection_ark
       end
 
       class << self
@@ -17,6 +18,13 @@ module Merritt
           env_db_config = db_config[Config.environment]
           InventoryDB.new(env_db_config)
         end
+      end
+
+      def find_existing_object(local_id, collection_ark)
+        result = existing_object_stmt.execute(local_id, collection_ark).first
+        return nil unless result
+
+        OpenStruct.new(result)
       end
 
       private
@@ -36,13 +44,6 @@ module Merritt
 
       def existing_object_stmt
         @existing_object_stmt ||= db_connection.prepare(EXISTING_OBJECT_SQL)
-      end
-
-      def find_existing_object(local_id)
-        result = existing_object_stmt.execute(local_id, collection_ark).first
-        return nil unless result
-
-        OpenStruct.new(result)
       end
 
     end

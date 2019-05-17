@@ -5,14 +5,9 @@ module Merritt
   module TIND
     class RecordProcessor
 
-      attr_reader :record
-      attr_reader :inv_db
-      attr_reader :log
-
-      def initialize(record:, inv_db:, log:)
+      def initialize(record, harvester)
         @record = record
-        @inv_db = inv_db
-        @log = log
+        @harvester = harvester
       end
 
       def process_record!
@@ -20,6 +15,8 @@ module Merritt
 
         log.info("Ready to submit id: #{local_id}")
       end
+
+      private
 
       def already_up_to_date?
         @already_up_to_date ||= existing_object && existing_object.modified >= record.datestamp
@@ -30,14 +27,20 @@ module Merritt
         @existing_object
       end
 
+      def find_existing_object
+        inv_db.find_existing_object(local_id, collection_ark)
+      end
+
+      def inv_db
+        harvester.mrt_inv_db
+      end
+
       def local_id
         record.local_id
       end
 
-      private
-
-      def find_existing_object
-        inv_db.find_existing_object(local_id)
+      def collection_ark
+        harvester.mrt_collection_ark
       end
 
     end

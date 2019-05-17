@@ -17,15 +17,15 @@ module Merritt
       def initialize(config)
         @config = config
 
-        set_str = config.set ? "'#{config.set}'" : '<nil>'
-        log.info("initializing harvester for base URL #{base_uri}, set #{set_str} => collection #{config.collection_ark}")
+        set_str = config.oai_set ? "'#{config.oai_set}'" : '<nil>'
+        log.info("initializing harvester for base URL #{oai_base_uri}, set #{set_str} => collection #{config.mrt_collection_ark}")
       end
 
       def process_feed!(from_time: nil, until_time: nil)
         from_time = determine_from_time(from_time)
         feed = harvest(from_time: from_time, until_time: until_time)
         feed.each do |r|
-          record_processor = RecordProcessor.new(record: r, inv_db: inv_db, log: log)
+          record_processor = RecordProcessor.new(r, self)
           record_processor.process_record!
         end
       end
@@ -33,24 +33,28 @@ module Merritt
       def harvest(from_time: nil, until_time: nil)
         opts = to_opts(from_time, until_time)
         log.info("harvesting #{query_uri(opts)}")
-        resp = client.list_records(opts)
+        resp = oai_client.list_records(opts)
         Feed.new(resp)
-      end
-
-      def base_uri
-        @base_uri ||= URI.parse(config.base_url)
       end
 
       def last_harvest
         @last_harvest ||= LastHarvest.from_file(config.last_harvest_path)
       end
 
-      def client
-        @client ||= Harvester.oai_client_for(base_uri)
+      def oai_client
+        @oai_client ||= Harvester.oai_client_for(oai_base_uri)
       end
 
-      def inv_db
-        @inv_db ||= InventoryDB.from_file(config.db_config_path)
+      def oai_base_uri
+        @oai_base_uri ||= URI.parse(config.oai_base_url)
+      end
+
+      def mrt_collection_ark
+        config.mrt_collection_ark
+      end
+
+      def mrt_inv_db
+        @mrt_inv_db ||= InventoryDB.from_file(config.db_config_path)
       end
 
       def log
@@ -78,7 +82,7 @@ module Merritt
       def query_uri(opts)
         query = '?ListRecords'
         opts.each { |k, v| query << "&#{k}=#{v}" } if opts
-        base_uri.merge(query)
+        oai_base_uri.merge(query)
       end
 
       def to_opts(from_time, until_time)
@@ -86,7 +90,7 @@ module Merritt
         {
           from: from_time && from_time.iso8601,
           until: until_time && until_time.iso8601,
-          set: config.set
+          set: config.oai_set
         }.compact
       end
 

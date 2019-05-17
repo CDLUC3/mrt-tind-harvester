@@ -34,7 +34,7 @@ module Merritt::TIND
       before(:each) do
         @base_url = 'https://tind.example.edu/oai2d'
         @set = 'calher130'
-        config_h = { 'base_url' => base_url, 'set' => set }
+        config_h = { 'oai' => { 'base_url' => base_url, 'set' => set } }
         @config = Config.new(config_h)
         @harvester = Harvester.new(config)
       end
