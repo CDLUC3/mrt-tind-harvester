@@ -1,3 +1,5 @@
+require 'mysql2'
+
 module Merritt
   module TIND
     class InventoryDB
@@ -6,7 +8,6 @@ module Merritt
 
       def initialize(db_config_h)
         @db_connection = Mysql2::Client.new(db_config_h)
-        @collection_ark = collection_ark
       end
 
       class << self
