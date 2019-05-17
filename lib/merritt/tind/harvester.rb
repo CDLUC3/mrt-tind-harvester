@@ -57,9 +57,7 @@ module Merritt
         @log ||= Logging.new_logger(config.log_path, config.log_level)
       end
 
-      private
-
-      def determine_from_time(from_time)
+      def determine_from_time(from_time = nil)
         return from_time if from_time
 
         oldest_failed = last_harvest.oldest_failed_datestamp
@@ -67,6 +65,8 @@ module Merritt
 
         last_harvest.newest_success_datestamp
       end
+
+      private
 
       def utc_or_nil(time)
         return time.utc if time.respond_to?(:utc)

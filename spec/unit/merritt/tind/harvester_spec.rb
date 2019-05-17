@@ -5,6 +5,14 @@ require 'pathname'
 module Merritt::TIND
   describe Harvester do
 
+    attr_reader :logdev
+
+    before(:each) do
+      @logdev = instance_double(Logger::LogDevice)
+      allow(logdev).to receive(:write)
+      allow(Logger::LogDevice).to receive(:new).and_return(logdev)
+    end
+
     describe 'invalid' do
       it 'requires a URL' do
         expect { Harvester.new(Config.new) }.to raise_error(URI::InvalidURIError)
@@ -138,18 +146,12 @@ module Merritt::TIND
     end
 
     describe :log do
-      attr_reader :logdev
-
-      before(:each) do
-        @logdev = instance_double(Logger::LogDevice)
-        allow(logdev).to receive(:write)
-        log_path = Pathname.new('/tmp/tind-harvester-test.log')
-        allow(Logger::LogDevice).to receive(:new)
+      it 'logs to the configured logger' do
+        log_path = Pathname.new('spec/data/tind-harvester-test.log').expand_path
+        expect(Logger::LogDevice).to receive(:new)
           .with(log_path, hash_including(shift_age: Logging::NUM_LOG_FILES))
           .and_return(logdev)
-      end
 
-      it 'logs to the configured logger' do
         harvester = Harvester.from_file('spec/data/tind-harvester-config.yml')
         log = harvester.log
         expect(log.level).to eq(Logger::INFO)
@@ -160,45 +162,32 @@ module Merritt::TIND
       end
     end
 
-    describe :process_feed! do
+    describe :determine_from_time do
       attr_reader :harvester
-      attr_reader :feed
 
       before(:each) do
         @harvester = Harvester.from_file('spec/data/tind-harvester-config.yml')
-        @feed = instance_double(Feed)
-        allow(feed).to receive(:each)
       end
 
       it 'defaults to harvesting all records' do
         harvester.instance_variable_set(:@last_harvest, LastHarvest.new)
-        expect(harvester).to receive(:harvest).with(from_time: nil, until_time: nil).and_return(feed)
-        harvester.process_feed!
+        expect(harvester.determine_from_time).to be_nil
       end
 
       it 'prefers an explicit start time, if set' do
         from_time = Time.now
-        expect(harvester).to receive(:harvest).with(from_time: from_time, until_time: nil).and_return(feed)
-        harvester.process_feed!(from_time: from_time)
-      end
-
-      it 'accepts an explicit end time' do
-        until_time = Time.now
-        expect(harvester).to receive(:harvest).with(hash_including(until_time: until_time)).and_return(feed)
-        harvester.process_feed!(until_time: until_time)
+        expect(harvester.determine_from_time(from_time)).to eq(from_time)
       end
 
       it 'prefers the "oldest failed" time, if no explicit start time set' do
         lh = harvester.last_harvest
-        expect(harvester).to receive(:harvest).with(hash_including(from_time: lh.oldest_failed_datestamp)).and_return(feed)
-        harvester.process_feed!
+        expect(harvester.determine_from_time).to eq(lh.oldest_failed_datestamp)
       end
 
       it 'falls back to the "newest success" time, if no explicit start time or "oldest failed" set' do
         lh = harvester.last_harvest
         lh.instance_variable_set(:@oldest_failed, nil)
-        expect(harvester).to receive(:harvest).with(hash_including(from_time: lh.newest_success_datestamp)).and_return(feed)
-        harvester.process_feed!
+        expect(harvester.determine_from_time).to eq(lh.newest_success_datestamp)
       end
     end
 

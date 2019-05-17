@@ -59,7 +59,7 @@ module Merritt
         return pathname if pathname.absolute?
         return pathname unless config_path
 
-        (config_path.parent + pathname).realpath
+        (config_path.parent + pathname).cleanpath
       end
 
       class << self
