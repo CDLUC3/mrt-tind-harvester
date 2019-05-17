@@ -1,6 +1,7 @@
 #### Custom ignores ####
 
 .config-secret
+log
 
 # github-markdown-preview previews
 *.md.html

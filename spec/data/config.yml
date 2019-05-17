@@ -1,5 +1,5 @@
 test:
-  last_harvest: last_tind_harvest.yml
+  last_harvest: last-harvest.yml
   oai:
     base_url: https://tind.example.edu/oai2d
     set: calher130

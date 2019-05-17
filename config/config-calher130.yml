@@ -1,0 +1,13 @@
+stage:
+  last_harvest: ../log/last-harvest-calher130-stage.yml
+  oai:
+    base_url: https://berkeley-test.tind.io/oai2d
+    set: calher130
+  merritt:
+    collection_ark: ark:/13030/m5vd6wc7
+    database: database.yml
+    ingest_url: http://merritt-stage.cdlib.org:33121/poster/submit/
+    ingest_profile: ucb_lib_content
+  log:
+    file: ../log/calher130-stage.log
+    level: info

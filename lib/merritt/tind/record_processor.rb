@@ -20,12 +20,16 @@ module Merritt
       def process_record!
         return if already_up_to_date?
 
-        log.info("Ready to submit id: #{local_id}")
-        ingest_object.add_component(record.content_uri)
-        ingest_object.start_ingest(ingest_client, ingest_profile, USER_AGENT)
+        log.info("Processing record: #{local_id} (content: #{content_uri}")
+        return if harvester.dry_run
       end
 
       private
+
+      def do_process
+        ingest_object.add_component(content_uri)
+        ingest_object.start_ingest(ingest_client, ingest_profile, USER_AGENT)
+      end
 
       def already_up_to_date?
         @already_up_to_date ||= existing_object && existing_object.modified >= record.datestamp
@@ -46,6 +50,10 @@ module Merritt
 
       def local_id
         record.local_id
+      end
+
+      def content_uri
+        record.content_uri
       end
 
       def collection_ark

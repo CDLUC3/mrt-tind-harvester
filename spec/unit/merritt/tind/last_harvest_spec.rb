@@ -7,7 +7,7 @@ module Merritt::TIND
   describe LastHarvest do
     describe :from_file do
       it 'reads the file' do
-        lh = LastHarvest.from_file('spec/data/last_tind_harvest.yml')
+        lh = LastHarvest.from_file('spec/data/last-harvest.yml')
         of = lh.oldest_failed
         expect(of).not_to(be_nil)
         expect(of.identifier).to eq('oai:berkeley-test.tind.io:5541')
@@ -20,7 +20,7 @@ module Merritt::TIND
       end
 
       it 'accepts a pathname' do
-        filename = 'spec/data/last_tind_harvest.yml'
+        filename = 'spec/data/last-harvest.yml'
         from_file = LastHarvest.from_file(filename)
         pathname = Pathname.new(filename)
         from_path = LastHarvest.from_file(pathname)
@@ -63,7 +63,7 @@ module Merritt::TIND
       end
 
       it 'writes to a file' do
-        file = File.join(tmpdir, 'last_tind_harvest.yml')
+        file = File.join(tmpdir, 'last-harvest.yml')
         last_harvest.write_to(file)
         round_trip = LastHarvest.from_file(file)
         expect(round_trip.to_h).to eq(last_harvest.to_h)
@@ -72,7 +72,7 @@ module Merritt::TIND
       it 'rotates existing files' do
         expect(Dir.empty?(tmpdir)).to eq(true) # just to be sure
 
-        filename = File.join(tmpdir, 'last_tind_harvest.yml')
+        filename = File.join(tmpdir, 'last-harvest.yml')
         last_harvest.write_to(filename)
 
         time_now = Time.now

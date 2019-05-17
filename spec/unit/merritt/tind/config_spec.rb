@@ -5,14 +5,14 @@ module Merritt::TIND
   describe Config do
     describe :from_file do
       it 'constructs a valid config' do
-        config = Config.from_file('spec/data/tind-harvester-config.yml')
+        config = Config.from_file('spec/data/config.yml')
         expect(config.oai_base_url).to eq('https://tind.example.edu/oai2d')
         expect(config.oai_set).to eq('calher130')
         expect(config.mrt_collection_ark).to eq('ark:/13030/m5vd6wc7')
       end
 
       it 'accepts a pathname' do
-        filename = 'spec/data/tind-harvester-config.yml'
+        filename = 'spec/data/config.yml'
         from_file = Config.from_file(filename)
         pathname = Pathname.new(filename)
         from_path = Config.from_file(pathname)

@@ -152,7 +152,7 @@ module Merritt::TIND
           .with(log_path, hash_including(shift_age: Logging::NUM_LOG_FILES))
           .and_return(logdev)
 
-        harvester = Harvester.from_file('spec/data/tind-harvester-config.yml')
+        harvester = Harvester.from_file('spec/data/config.yml')
         log = harvester.log
         expect(log.level).to eq(Logger::INFO)
 
@@ -166,7 +166,7 @@ module Merritt::TIND
       attr_reader :harvester
 
       before(:each) do
-        @harvester = Harvester.from_file('spec/data/tind-harvester-config.yml')
+        @harvester = Harvester.from_file('spec/data/config.yml')
       end
 
       it 'defaults to harvesting all records' do
@@ -193,8 +193,8 @@ module Merritt::TIND
 
     describe :last_harvest do
       it 'reads a relative path' do
-        expected = LastHarvest.from_file('spec/data/last_tind_harvest.yml')
-        actual = Harvester.from_file('spec/data/tind-harvester-config.yml').last_harvest
+        expected = LastHarvest.from_file('spec/data/last-harvest.yml')
+        actual = Harvester.from_file('spec/data/config.yml').last_harvest
         expect(actual).not_to be_nil
         expect(actual.to_h).to eq(expected.to_h)
       end

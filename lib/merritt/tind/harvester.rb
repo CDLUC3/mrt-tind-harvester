@@ -14,8 +14,9 @@ module Merritt
 
       attr_reader :config
 
-      def initialize(config)
+      def initialize(config, dry_run: false)
         @config = config
+        @dry_run = dry_run
 
         set_str = config.oai_set ? "'#{config.oai_set}'" : '<nil>'
         log.info("initializing harvester for base URL #{oai_base_uri}, set #{set_str} => collection #{config.mrt_collection_ark}")
@@ -24,21 +25,28 @@ module Merritt
       def process_feed!(from_time: nil, until_time: nil)
         from_time = determine_from_time(from_time)
         feed = harvest(from_time: from_time, until_time: until_time)
+        return process_feed(feed, nil) if dry_run?
+
+        with_server { |server| process_feed(feed, server) }
+      end
+
+      def with_server
         server = Mrt::Ingest::OneTimeServer.new
         server.start_server
-        feed.each do |r|
-          record_processor = RecordProcessor.new(r, self, server)
-          record_processor.process_record!
-        end
+        yield
       ensure
         server.join_server
       end
 
       def harvest(from_time: nil, until_time: nil)
-        opts = to_opts(from_time, until_time)
+        opts = to_oai_opts(from_time, until_time)
         log.info("harvesting #{query_uri(opts)}")
         resp = oai_client.list_records(opts)
         Feed.new(resp)
+      end
+
+      def dry_run?
+        @dry_run
       end
 
       def last_harvest
@@ -85,11 +93,12 @@ module Merritt
 
       private
 
-      def utc_or_nil(time)
-        return time.utc if time.respond_to?(:utc)
-        return unless time
-
-        raise ArgumentError, "time #{time} does not appear to be a Time"
+      def process_feed(feed, server)
+        # TODO: record LastHarvest
+        feed.each do |r|
+          record_processor = RecordProcessor.new(r, self, server)
+          record_processor.process_record!
+        end
       end
 
       def query_uri(opts)
@@ -98,22 +107,9 @@ module Merritt
         oai_base_uri.merge(query)
       end
 
-      def to_opts(from_time, until_time)
-        from_time, until_time = valid_range(from_time, until_time)
-        {
-          from: from_time && from_time.iso8601,
-          until: until_time && until_time.iso8601,
-          set: config.oai_set
-        }.compact
-      end
-
-      def valid_range(from_time, until_time)
-        from_time, until_time = [from_time, until_time].map(&method(:utc_or_nil))
-        if from_time && until_time
-          raise RangeError, "from_time #{from_time} must be <= until_time #{until_time}" if from_time > until_time
-        end
-
-        [from_time, until_time]
+      def to_oai_opts(from_time, until_time)
+        from_iso8601, until_iso8601 = Times.iso8601_range(from_time, until_time)
+        { from: from_iso8601, until: until_iso8601, set: config.oai_set }.compact
       end
 
       class << self
