@@ -4,6 +4,7 @@ AllCops:
   # Exclude generated files
   Exclude:
     - 'db/**/*'
+    - 'out/**/*'
 
 # Allow one line around block body (Layout/EmptyLines will still disallow two or more)
 Layout/EmptyLinesAroundBlockBody:

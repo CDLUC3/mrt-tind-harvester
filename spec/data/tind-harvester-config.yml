@@ -3,6 +3,6 @@ test:
   base_url: https://tind.example.edu/oai2d
   set: calher130
   log_level: info
-  log_path: tind-harvester-test.log
+  log_path: /tmp/tind-harvester-test.log
   last_harvest: last_tind_harvest.yml
   database: ../../.config-travis/database.yml

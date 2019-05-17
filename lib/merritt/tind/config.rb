@@ -1,14 +1,8 @@
-require 'logger'
-require 'mysql2/client'
-require 'ostruct'
 require 'pathname'
-require 'time'
 require 'yaml'
-require 'mrt/ingest'
 
 module Merritt
   module TIND
-    # TODO: is this really a config, or is it the harvest job?
     class Config
 
       attr_reader :config_h
@@ -31,48 +25,14 @@ module Merritt
         config_h['set']
       end
 
-      def last_harvest
-        @last_harvest ||= LastHarvest.from_file(last_harvest_path)
+      def log_level
+        config_h['log_level']
       end
 
-      def new_harvester
-        Harvester.new(self)
-      end
-
-      def log
-        @log ||= Logging.new_logger(config_h['log_path'], config_h['log_level'])
-      end
-
-      def find_existing_object(local_id)
-        result = existing_object_stmt.execute(local_id, collection_ark).first
-        return nil unless result
-
-        OpenStruct.new(result)
-      end
-
-      private
-
-      EXISTING_OBJECT_SQL = <<~SQL.freeze
-            SELECT inv_objects.*
-              FROM inv_objects
-        INNER JOIN inv_collections_inv_objects
-                ON inv_collections_inv_objects.inv_object_id = inv_objects.id
-        INNER JOIN inv_collections
-                ON inv_collections.id = inv_collections_inv_objects.inv_collection_id
-             WHERE (erc_where LIKE '%?%')
-               AND inv_collections.ark = ?
-          ORDER BY inv_objects.id ASC
-             LIMIT 1
-      SQL
-
-      def db_connection
-        @db_connection ||= begin
-          raise "Can't connect to nil database" unless db_config_path
-          raise ArgumentError, "Specified database config #{db_config_path} does not exist" unless File.exist?(db_config_path)
-
-          db_config = YAML.load_file(db_config_path)
-          env_db_config = db_config[Config.environment]
-          Mysql2::Client.new(env_db_config)
+      def log_path
+        @log_path ||= begin
+          lp = config_h['log_path']
+          resolve_relative_path(lp)
         end
       end
 
@@ -90,6 +50,8 @@ module Merritt
         end
       end
 
+      private
+
       def resolve_relative_path(filename)
         return nil unless filename
 
@@ -98,10 +60,6 @@ module Merritt
         return pathname unless config_path
 
         (config_path.parent + pathname).realpath
-      end
-
-      def existing_object_stmt
-        @existing_object_stmt ||= db_connection.prepare(EXISTING_OBJECT_SQL)
       end
 
       class << self

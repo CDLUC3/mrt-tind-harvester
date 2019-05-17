@@ -6,11 +6,13 @@ module Merritt
     class RecordProcessor
 
       attr_reader :record
-      attr_reader :config
+      attr_reader :inv_db
+      attr_reader :log
 
-      def initialize(record:, config:)
+      def initialize(record:, inv_db:, log:)
         @record = record
-        @config = config
+        @inv_db = inv_db
+        @log = log
       end
 
       def process_record!
@@ -34,16 +36,8 @@ module Merritt
 
       private
 
-      def log
-        config.log
-      end
-
-      def db_connection
-        config.db_connection
-      end
-
       def find_existing_object
-        config.find_existing_object(local_id)
+        inv_db.find_existing_object(local_id)
       end
 
     end

@@ -1,39 +1,33 @@
 require 'spec_helper'
+require 'logger'
+require 'pathname'
 
 module Merritt::TIND
   describe Harvester do
-    attr_reader :config
-
-    def config_h
-      config.instance_variable_get(:@config_h)
-    end
-
-    before(:each) do
-      @config = Config.new
-    end
 
     describe 'invalid' do
       it 'requires a URL' do
-        expect { Harvester.new(config) }.to raise_error(URI::InvalidURIError)
+        expect { Harvester.new(Config.new) }.to raise_error(URI::InvalidURIError)
       end
 
       it 'requires a valid URL' do
         bad_url = 'http://not a hostname/oai2d'
-        config_h['base_url'] = bad_url
+        config = Config.new({ 'base_url' => bad_url })
         expect { Harvester.new(config) }.to raise_error(URI::InvalidURIError)
       end
     end
 
     describe 'valid' do
       attr_reader :base_url
+      attr_reader :config
       attr_reader :harvester
       attr_reader :set
 
       before(:each) do
         @base_url = 'https://tind.example.edu/oai2d'
         @set = 'calher130'
-        config_h['base_url'] = base_url
-        config_h['set'] = set
+        config_h = { 'base_url' => base_url, 'set' => set }
+        @config = Config.new(config_h)
         @harvester = Harvester.new(config)
       end
 
@@ -140,6 +134,80 @@ module Merritt::TIND
           end
 
         end
+      end
+    end
+
+    describe :log do
+      attr_reader :logdev
+
+      before(:each) do
+        @logdev = instance_double(Logger::LogDevice)
+        allow(logdev).to receive(:write)
+        log_path = Pathname.new('/tmp/tind-harvester-test.log')
+        allow(Logger::LogDevice).to receive(:new)
+          .with(log_path, hash_including(shift_age: Logging::NUM_LOG_FILES))
+          .and_return(logdev)
+      end
+
+      it 'logs to the configured logger' do
+        harvester = Harvester.from_file('spec/data/tind-harvester-config.yml')
+        log = harvester.log
+        expect(log.level).to eq(Logger::INFO)
+
+        msg = 'help I am trapped in a logging factory'
+        expect(logdev).to receive(:write).with(match(/[0-9TZ:+-]+\tWARN\t#{msg}/))
+        log.warn(msg)
+      end
+    end
+
+    describe :process_feed! do
+      attr_reader :harvester
+      attr_reader :feed
+
+      before(:each) do
+        @harvester = Harvester.from_file('spec/data/tind-harvester-config.yml')
+        @feed = instance_double(Feed)
+        allow(feed).to receive(:each)
+      end
+
+      it 'defaults to harvesting all records' do
+        harvester.instance_variable_set(:@last_harvest, LastHarvest.new)
+        expect(harvester).to receive(:harvest).with(from_time: nil, until_time: nil).and_return(feed)
+        harvester.process_feed!
+      end
+
+      it 'prefers an explicit start time, if set' do
+        from_time = Time.now
+        expect(harvester).to receive(:harvest).with(from_time: from_time, until_time: nil).and_return(feed)
+        harvester.process_feed!(from_time: from_time)
+      end
+
+      it 'accepts an explicit end time' do
+        until_time = Time.now
+        expect(harvester).to receive(:harvest).with(hash_including(until_time: until_time)).and_return(feed)
+        harvester.process_feed!(until_time: until_time)
+      end
+
+      it 'prefers the "oldest failed" time, if no explicit start time set' do
+        lh = harvester.last_harvest
+        expect(harvester).to receive(:harvest).with(hash_including(from_time: lh.oldest_failed_datestamp)).and_return(feed)
+        harvester.process_feed!
+      end
+
+      it 'falls back to the "newest success" time, if no explicit start time or "oldest failed" set' do
+        lh = harvester.last_harvest
+        lh.instance_variable_set(:@oldest_failed, nil)
+        expect(harvester).to receive(:harvest).with(hash_including(from_time: lh.newest_success_datestamp)).and_return(feed)
+        harvester.process_feed!
+      end
+    end
+
+    describe :last_harvest do
+      it 'reads a relative path' do
+        expected = LastHarvest.from_file('spec/data/last_tind_harvest.yml')
+        actual = Harvester.from_file('spec/data/tind-harvester-config.yml').last_harvest
+        expect(actual).not_to be_nil
+        expect(actual.to_h).to eq(expected.to_h)
       end
     end
 

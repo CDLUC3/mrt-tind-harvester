@@ -55,14 +55,14 @@ module Merritt::TIND
       before :each do
         @tmpdir = Dir.mktmpdir('last_harvest_spec')
 
-        @failed_ids =  [
+        @failed_ids = [
           'BANC PIC 19xx.069:02--ffALB',
           'http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955',
           'http://berkeley-test.tind.io/record/5542/files/I0025874A.jpg',
           'http://berkeley-test.tind.io/record/5542'
         ]
 
-        @success_ids =  [
+        @success_ids = [
           'BANC PIC 19xx.069:25--ffALB',
           'http://www.oac.cdlib.org/findaid/ark:/13030/tf1z09n955',
           'http://berkeley-test.tind.io/record/5565/files/I0025897A.jpg',
