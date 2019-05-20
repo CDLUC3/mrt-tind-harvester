@@ -100,14 +100,19 @@ module Merritt
         )
         feed.each do |r|
           record_processor = RecordProcessor.new(r, self, server)
+          # TODO: extract this & return state
           begin
             record_processor.process_record!
+            # TODO: give LastHarvest an update method
             last_harvest_next.newest_success = Record.later(r, last_harvest_next.newest_success)
           rescue => e
             log.warn(e)
+            # TODO: give LastHarvest an update method
             last_harvest_next.oldest_failed = Record.earlier(r, last_harvest_next.oldest_failed)
           end
         end
+        # TODO: write last harvest back to file
+        # TODO: join server
       end
 
       def query_uri(opts)
