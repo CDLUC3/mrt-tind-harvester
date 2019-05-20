@@ -44,8 +44,22 @@ module Merritt
       end
 
       def update(success: nil, failure: nil)
-        @newest_success = Record.later(success, newest_success) if success
-        @oldest_failed = Record.earlier(failure, oldest_failed) if failure
+        LastHarvest.new(
+          newest_success: Record.later(success, newest_success),
+          oldest_failed: Record.earlier(failure, oldest_failed)
+        )
+      end
+
+      private
+
+      def initialize_dup(source)
+        @newest_success = source.newest_success && source.newest_success.dup
+        @oldest_failed = source.oldest_failed && source.oldest_failed.dup
+      end
+
+      def initialize_clone(source)
+        @newest_success = source.newest_success && source.newest_success.clone
+        @oldest_failed = source.oldest_failed && source.oldest_failed.clone
       end
 
       class << self

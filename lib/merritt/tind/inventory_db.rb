@@ -30,6 +30,7 @@ module Merritt
 
       private
 
+      # TODO: is this right or should we be using erc_where? or both?
       EXISTING_OBJECT_SQL = <<~SQL.freeze
         SELECT o.*
           FROM inv_objects AS o

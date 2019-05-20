@@ -30,8 +30,7 @@ task spec: 'spec:all'
 desc 'Run all tests with coverage'
 task :coverage do
   ENV['COVERAGE'] = 'true'
-  # TODO: figure out why prerequisites don't get called
-  Rake::Task['spec:all'].execute
+  Rake::Task['spec'].invoke
 end
 
 # ------------------------------------------------------------

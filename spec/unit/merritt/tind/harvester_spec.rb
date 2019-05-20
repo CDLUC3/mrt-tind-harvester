@@ -170,7 +170,7 @@ module Merritt::TIND
       end
 
       it 'defaults to harvesting all records' do
-        harvester.instance_variable_set(:@last_harvest, LastHarvest.new)
+        allow(LastHarvest).to receive(:from_file).and_return(LastHarvest.new)
         expect(harvester.determine_from_time).to be_nil
       end
 
@@ -185,9 +185,9 @@ module Merritt::TIND
       end
 
       it 'falls back to the "newest success" time, if no explicit start time or "oldest failed" set' do
-        lh = harvester.last_harvest
-        lh.instance_variable_set(:@oldest_failed, nil)
-        expect(harvester.determine_from_time).to eq(lh.newest_success_datestamp)
+        newest_success = harvester.last_harvest.newest_success
+        allow(LastHarvest).to receive(:from_file).and_return(LastHarvest.new(newest_success: newest_success))
+        expect(harvester.determine_from_time).to eq(newest_success.datestamp)
       end
     end
 

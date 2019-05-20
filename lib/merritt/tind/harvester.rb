@@ -1,12 +1,5 @@
 require 'faraday_middleware'
-require 'logger'
-require 'mrt/ingest'
-require 'mysql2/client'
 require 'oai/client'
-require 'ostruct'
-require 'pathname'
-require 'time'
-require 'yaml'
 
 module Merritt
   module TIND
@@ -50,7 +43,8 @@ module Merritt
       end
 
       def last_harvest
-        @last_harvest ||= LastHarvest.from_file(config.last_harvest_path)
+        # read this from the file every time
+        LastHarvest.from_file(config.last_harvest_path)
       end
 
       def oai_client
@@ -85,39 +79,20 @@ module Merritt
       def determine_from_time(from_time = nil)
         return from_time if from_time
 
-        oldest_failed = last_harvest.oldest_failed_datestamp
+        lh = last_harvest
+        oldest_failed = lh.oldest_failed_datestamp
         return oldest_failed if oldest_failed
 
-        last_harvest.newest_success_datestamp
+        lh.newest_success_datestamp
       end
 
       private
 
       def process_feed(feed, server)
-        last_harvest_next = LastHarvest.new(
-          oldest_failed: last_harvest.oldest_failed,
-          newest_success: last_harvest.newest_success
-        )
-        feed.each { |r| process_record(r, server, last_harvest_next) }
+        return unless feed
 
-        log.debug("Updating #{config.last_harvest_path}:\n#{last_harvest_next.to_yaml.gsub(/^/, "\t")}")
-        update_last_harvest!(last_harvest_next)
-      end
-
-      def update_last_harvest!(last_harvest_next)
-        if dry_run?
-          log.info("Dry run: #{config.last_harvest_path} not updated")
-        else
-          last_harvest_next.write_to(config.last_harvest_path)
-        end
-      end
-
-      def process_record(r, server, last_harvest_next)
-        RecordProcessor.new(r, self, server).process_record!
-        last_harvest_next.update(success: r)
-      rescue StandardError => e
-        log.warn(e)
-        last_harvest_next.update(failure: r)
+        feed_processor = FeedProcessor.new(feed: feed, server: server, harvester: self)
+        feed_processor.process_feed!
       end
 
       def query_uri(opts)

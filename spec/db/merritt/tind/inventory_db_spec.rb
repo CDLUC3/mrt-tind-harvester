@@ -29,7 +29,7 @@ module Merritt::TIND
       end
 
       it 'finds nothing in an empty database' do
-        existing_object = inventory_db.find_existing_object('0000 0001 1690 159X', ::ArkHelper.next_ark)
+        existing_object = inventory_db.find_existing_object('0000 0001 1690 159X', ArkHelper.next_ark)
         expect(existing_object).to be_nil
       end
 

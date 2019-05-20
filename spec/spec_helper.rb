@@ -35,3 +35,6 @@ end
 ENV['HARVESTER_ENV'] = 'test'
 
 require 'merritt'
+
+# TODO: is this needed?
+Dir.glob(File.expand_path('support/*.rb', __dir__)).sort.each(&method(:require))

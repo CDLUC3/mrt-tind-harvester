@@ -21,7 +21,7 @@ module Merritt
         return true if already_up_to_date?
 
         log.info("Processing record: #{local_id} (content: #{content_uri}")
-        return true if harvester.dry_run
+        return true if harvester.dry_run?
 
         submit_to_ingest!
       end

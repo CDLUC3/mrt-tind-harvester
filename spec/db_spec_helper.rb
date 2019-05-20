@@ -4,7 +4,6 @@ require 'database_cleaner'
 require 'factory_bot'
 
 Dir.glob(File.expand_path('models/*.rb', __dir__)).sort.each(&method(:require))
-Dir.glob(File.expand_path('support/*.rb', __dir__)).sort.each(&method(:require))
 
 def check_connection_config!
   db_config = YAML.load_file('spec/config/database.yml')['test'].map { |k, v| [k.to_sym, v] }.to_h
