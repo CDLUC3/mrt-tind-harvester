@@ -8,8 +8,8 @@ module Merritt
       OLDEST_FAILED = 'oldest_failed'.freeze
       NEWEST_SUCCESS = 'newest_success'.freeze
 
-      attr_reader :oldest_failed
-      attr_reader :newest_success
+      attr_accessor :oldest_failed
+      attr_accessor :newest_success
 
       # @param oldest_failed [Record, nil] the oldest record that failed to submit
       # @param newest_success [Record, nil] the newest record successfully submitted

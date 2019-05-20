@@ -94,10 +94,19 @@ module Merritt
       private
 
       def process_feed(feed, server)
-        # TODO: record LastHarvest
+        last_harvest_next = LastHarvest.new(
+          oldest_failed: last_harvest.oldest_failed,
+          newest_success: last_harvest.newest_success
+        )
         feed.each do |r|
           record_processor = RecordProcessor.new(r, self, server)
-          record_processor.process_record!
+          begin
+            record_processor.process_record!
+            last_harvest_next.newest_success = Record.later(r, last_harvest_next.newest_success)
+          rescue => e
+            log.warn(e)
+            last_harvest_next.oldest_failed = Record.earlier(r, last_harvest_next.oldest_failed)
+          end
         end
       end
 
