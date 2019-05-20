@@ -19,7 +19,7 @@ module Merritt
         @dry_run = dry_run
 
         set_str = config.oai_set ? "'#{config.oai_set}'" : '<nil>'
-        log.info("initializing harvester for base URL #{oai_base_uri}, set #{set_str} => collection #{config.mrt_collection_ark}")
+        log.info("Initializing harvester for base URL #{oai_base_uri}, set #{set_str} => collection #{config.mrt_collection_ark}")
       end
 
       def process_feed!(from_time: nil, until_time: nil)
@@ -98,21 +98,26 @@ module Merritt
           oldest_failed: last_harvest.oldest_failed,
           newest_success: last_harvest.newest_success
         )
-        feed.each do |r|
-          record_processor = RecordProcessor.new(r, self, server)
-          # TODO: extract this & return state
-          begin
-            record_processor.process_record!
-            # TODO: give LastHarvest an update method
-            last_harvest_next.newest_success = Record.later(r, last_harvest_next.newest_success)
-          rescue => e
-            log.warn(e)
-            # TODO: give LastHarvest an update method
-            last_harvest_next.oldest_failed = Record.earlier(r, last_harvest_next.oldest_failed)
-          end
+        feed.each { |r| process_record(r, server, last_harvest_next) }
+
+        log.debug("Updating #{config.last_harvest_path}:\n#{last_harvest_next.to_yaml.gsub(/^/, "\t")}")
+        update_last_harvest!(last_harvest_next)
+      end
+
+      def update_last_harvest!(last_harvest_next)
+        if dry_run?
+          log.info("Dry run: #{config.last_harvest_path} not updated")
+        else
+          last_harvest_next.write_to(config.last_harvest_path)
         end
-        # TODO: write last harvest back to file
-        # TODO: join server
+      end
+
+      def process_record(r, server, last_harvest_next)
+        RecordProcessor.new(r, self, server).process_record!
+        last_harvest_next.update(success: r)
+      rescue StandardError => e
+        log.warn(e)
+        last_harvest_next.update(failure: r)
       end
 
       def query_uri(opts)
@@ -142,7 +147,6 @@ module Merritt
           end
           OAI::Client.new(base_uri.to_s, http: http_client)
         end
-
       end
 
     end

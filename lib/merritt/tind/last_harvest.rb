@@ -8,8 +8,8 @@ module Merritt
       OLDEST_FAILED = 'oldest_failed'.freeze
       NEWEST_SUCCESS = 'newest_success'.freeze
 
-      attr_accessor :oldest_failed
-      attr_accessor :newest_success
+      attr_reader :oldest_failed
+      attr_reader :newest_success
 
       # @param oldest_failed [Record, nil] the oldest record that failed to submit
       # @param newest_success [Record, nil] the newest record successfully submitted
@@ -25,9 +25,13 @@ module Merritt
         }
       end
 
+      def to_yaml
+        to_h.to_yaml
+      end
+
       def write_to(last_harvest_yml)
         Files.rotate_and_lock(last_harvest_yml) do |f|
-          f.write(to_h.to_yaml)
+          f.write(to_yaml)
         end
       end
 
@@ -37,6 +41,11 @@ module Merritt
 
       def newest_success_datestamp
         newest_success && newest_success.datestamp
+      end
+
+      def update(success: nil, failure: nil)
+        @newest_success = Record.later(success, newest_success) if success
+        @oldest_failed = Record.earlier(failure, oldest_failed) if failure
       end
 
       class << self
@@ -55,6 +64,7 @@ module Merritt
         end
 
       end
+
     end
   end
 end

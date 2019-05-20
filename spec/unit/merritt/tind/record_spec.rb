@@ -60,37 +60,37 @@ module Merritt::TIND
 
     describe 'comparisons' do
       attr_reader :r1, :r2
-      
+
       before(:each) do
         @r1 = Record.new(identifier: nil, datestamp: Time.now)
         @r2 = Record.new(identifier: nil, datestamp: Time.now + 1)
       end
 
-    describe :later do
-      it 'returns the record with a later timestamp' do
-        expect(Record.later(r1, r2)).to eq(r2)
+      describe :later do
+        it 'returns the record with a later timestamp' do
+          expect(Record.later(r1, r2)).to eq(r2)
+        end
+        it 'returns nil if both records are nil' do
+          expect(Record.later(nil, nil)).to be_nil
+        end
+        it 'returns the non-nil record if one record is nil' do
+          expect(Record.later(r1, nil)).to eq(r1)
+          expect(Record.later(nil, r2)).to eq(r2)
+        end
       end
-      it 'returns nil if both records are nil' do
-        expect(Record.later(nil, nil)).to be_nil
-      end
-      it 'returns the non-nil record if one record is nil' do
-        expect(Record.later(r1, nil)).to eq(r1)
-        expect(Record.later(nil, r2)).to eq(r2)
-      end
-    end
 
-    describe :earlier do
-      it 'returns the record with a earlier timestamp' do
-        expect(Record.earlier(r1, r2)).to eq(r1)
+      describe :earlier do
+        it 'returns the record with a earlier timestamp' do
+          expect(Record.earlier(r1, r2)).to eq(r1)
+        end
+        it 'returns nil if both records are nil' do
+          expect(Record.earlier(nil, nil)).to be_nil
+        end
+        it 'returns the non-nil record if one record is nil' do
+          expect(Record.earlier(r2, nil)).to eq(r2)
+          expect(Record.earlier(nil, r1)).to eq(r1)
+        end
       end
-      it 'returns nil if both records are nil' do
-        expect(Record.earlier(nil, nil)).to be_nil
-      end
-      it 'returns the non-nil record if one record is nil' do
-        expect(Record.earlier(r2, nil)).to eq(r2)
-        expect(Record.earlier(nil, r1)).to eq(r1)
-      end
-    end
 
     end
   end

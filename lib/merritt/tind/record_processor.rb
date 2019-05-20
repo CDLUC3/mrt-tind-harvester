@@ -18,17 +18,20 @@ module Merritt
       end
 
       def process_record!
-        return if already_up_to_date?
+        return true if already_up_to_date?
 
         log.info("Processing record: #{local_id} (content: #{content_uri}")
-        return if harvester.dry_run
+        return true if harvester.dry_run
+
+        submit_to_ingest!
       end
 
       private
 
-      def do_process
+      def submit_to_ingest!
         ingest_object.add_component(content_uri)
-        ingest_object.start_ingest(ingest_client, ingest_profile, USER_AGENT)
+        response = ingest_object.start_ingest(ingest_client, ingest_profile, USER_AGENT)
+        log.info("Batch #{response.batch_id} received at #{response.submission_date}")
       end
 
       def already_up_to_date?
