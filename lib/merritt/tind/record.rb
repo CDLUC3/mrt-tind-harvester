@@ -69,6 +69,20 @@ module Merritt
 
       class << self
 
+        def later(r1, r2)
+          return r1 if r2 == nil
+          return r2 if r1 == nil
+          return r1 if (r1.datestamp <=> r2.datestamp) > 0
+          r2
+        end
+
+        def earlier(r1, r2)
+          return r1 if r2 == nil
+          return r2 if r1 == nil
+          return r1 if (r1.datestamp <=> r2.datestamp) < 0
+          r2
+        end
+
         def from_hash(h)
           return unless h
 
