@@ -44,6 +44,28 @@ module Merritt::TIND
       end
     end
 
+    describe :clone do
+      it 'deep clones the object' do
+        lh1 = LastHarvest.from_file('spec/data/last-harvest.yml')
+        lh2 = lh1.clone
+        expect(lh2.to_h).to eq(lh1.to_h)
+        expect(lh2).not_to be(lh1)
+        expect(lh2.oldest_failed).not_to be(lh1.oldest_failed)
+        expect(lh2.newest_success).not_to be(lh1.newest_success)
+      end
+    end
+
+    describe :dup do
+      it 'deep duplicates the object' do
+        lh1 = LastHarvest.from_file('spec/data/last-harvest.yml')
+        lh2 = lh1.dup
+        expect(lh2.to_h).to eq(lh1.to_h)
+        expect(lh2).not_to be(lh1)
+        expect(lh2.oldest_failed).not_to be(lh1.oldest_failed)
+        expect(lh2.newest_success).not_to be(lh1.newest_success)
+      end
+    end
+
     describe :write_to do
       attr_reader :tmpdir
       attr_reader :last_harvest
