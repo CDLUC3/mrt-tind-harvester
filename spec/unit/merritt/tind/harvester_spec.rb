@@ -25,6 +25,36 @@ module Merritt::TIND
       end
     end
 
+    describe 'configuration' do
+      attr_reader :config
+      attr_reader :harvester
+
+      before :each do
+        @config = Config.from_file('spec/data/config.yml')
+        @harvester = Harvester.new(config)
+      end
+
+      it 'reads the collection ARK' do
+        expect(harvester.mrt_collection_ark).to eq(config.mrt_collection_ark)
+      end
+
+      it 'reads the ingest profile name' do
+        expect(harvester.mrt_ingest_profile).to eq(config.mrt_ingest_profile)
+      end
+
+      it 'reads the DB config path' do
+        inv_db = instance_double(InventoryDB)
+        expect(InventoryDB).to receive(:from_file).with(config.db_config_path).and_return(inv_db)
+        expect(harvester.mrt_inv_db).to eq(inv_db)
+      end
+
+      it 'reads the ingest URL' do
+        ingest_client = instance_double(Mrt::Ingest::Client)
+        expect(Mrt::Ingest::Client).to receive(:new).with(config.mrt_ingest_url).and_return(ingest_client)
+        expect(harvester.mrt_ingest_client).to eq(ingest_client)
+      end
+    end
+
     describe(:harvest) do
       attr_reader :base_url
       attr_reader :config

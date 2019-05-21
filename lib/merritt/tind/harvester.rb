@@ -69,7 +69,7 @@ module Merritt
 
       def mrt_ingest_client
         # TODO: secure way to get username and password?
-        @mrt_ingest_client ||= Mrt::Ingest::Client.new(mrt_ingest_url)
+        @mrt_ingest_client ||= Mrt::Ingest::Client.new(config.mrt_ingest_url)
       end
 
       def log
