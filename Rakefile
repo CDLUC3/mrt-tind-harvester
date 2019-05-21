@@ -18,11 +18,14 @@ namespace :spec do
     task.pattern = 'db/**/*_spec.rb'
   end
 
-  task all: %i[unit db]
+  desc 'Run all tests'
+  RSpec::Core::RakeTask.new(:all) do |task|
+    task.rspec_opts = %w[--color --format documentation --order default]
+  end
 end
 
 desc 'Run all tests'
-task spec: 'spec:all'
+task spec: %w(spec:all)
 
 # ------------------------------------------------------------
 # Coverage
@@ -30,7 +33,7 @@ task spec: 'spec:all'
 desc 'Run all tests with coverage'
 task :coverage do
   ENV['COVERAGE'] = 'true'
-  Rake::Task['spec'].invoke
+  Rake::Task[:spec].invoke
 end
 
 # ------------------------------------------------------------
