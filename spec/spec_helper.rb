@@ -10,10 +10,11 @@ if ENV['COVERAGE']
   SimpleCov.minimum_coverage 100
   SimpleCov.start do
     add_filter '/spec/'
-    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    formatters = [
       SimpleCov::Formatter::HTMLFormatter,
-      SimpleCov::Formatter::Console,
+      SimpleCov::Formatter::Console
     ]
+    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
   end
 end
 
