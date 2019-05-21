@@ -26,7 +26,7 @@ module Merritt
       def with_server
         server = Mrt::Ingest::OneTimeServer.new
         server.start_server
-        yield
+        yield server
       ensure
         server.join_server
       end

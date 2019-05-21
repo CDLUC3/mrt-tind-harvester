@@ -25,7 +25,7 @@ namespace :spec do
 end
 
 desc 'Run all tests'
-task spec: %w(spec:all)
+task spec: %w[spec:all]
 
 # ------------------------------------------------------------
 # Coverage
