@@ -18,13 +18,13 @@ module Merritt
       end
 
       def erc
-        # TODO: figure out real values
+        # TODO: something smarter when we know the real requirements
         {
           'where' => local_id,
           'what' => local_id,
-          'when' => record.dc_dates.first || record.datestamp,
-          'when/created' => record.dc_dates.first || record.datestamp,
-          'when/modified' => record.datestamp
+          'when' => dc_dates.first || datestamp,
+          'when/created' => dc_dates.first || datestamp,
+          'when/modified' => datestamp
         }
       end
 
@@ -41,11 +41,11 @@ module Merritt
       end
 
       def dc_titles
-        @dc_title ||= REXML::XPath.match(metadata, './/dc:title').map(&:text)
+        @dc_titles ||= REXML::XPath.match(metadata, './/dc:title').map(&:text)
       end
 
       def dc_creators
-        @dc_creator ||= REXML::XPath.match(metadata, './/dc:creator').map(&:text)
+        @dc_creators ||= REXML::XPath.match(metadata, './/dc:creator').map(&:text)
       end
 
       def content_uri
