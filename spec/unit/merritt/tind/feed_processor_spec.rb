@@ -21,7 +21,7 @@ module Merritt::TIND
       @feed = instance_double(Feed)
       @harvester = instance_double(Harvester)
       allow(harvester).to receive(:last_harvest).and_return(nil)
-      allow(harvester).to receive(:mrt_collection_ark).and_return(ArkHelper::next_ark)
+      allow(harvester).to receive(:mrt_collection_ark).and_return(ArkHelper.next_ark)
 
       @server = instance_double(Mrt::Ingest::OneTimeServer)
       @feed_processor = FeedProcessor.new(feed: feed, server: server, harvester: harvester)
@@ -30,7 +30,7 @@ module Merritt::TIND
       allow(harvester).to receive(:config).and_return(config)
 
       @tmpdir = Dir.mktmpdir
-      @last_harvest_path = Pathname.new(tmpdir) + "last-harvest.yml"
+      @last_harvest_path = Pathname.new(tmpdir) + 'last-harvest.yml'
       allow(config).to receive(:last_harvest_path).and_return(last_harvest_path)
 
       @log = instance_double(Logger)
@@ -61,9 +61,9 @@ module Merritt::TIND
           allow(record).to receive(:local_id).and_return(identifier)
           allow(record).to receive(:content_uri).and_return("http://example.org/file-#{i}.bin")
           allow(record).to receive(:to_h).and_return({
-            Record::IDENTIFIER => identifier,
-            Record::DATESTAMP => datestamp
-          })
+                                                       Record::IDENTIFIER => identifier,
+                                                       Record::DATESTAMP => datestamp
+                                                     })
           record
         end
 
