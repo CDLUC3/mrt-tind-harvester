@@ -233,6 +233,27 @@ module Merritt::TIND
         expect(logdev).to receive(:write).with(match(/[0-9TZ:+-]+\tWARN\t#{msg}/))
         log.warn(msg)
       end
+
+      it 'creates the log directory if it does not exist' do
+        tmpdir = Dir.mktmpdir
+        log_file = File.join(tmpdir, 'log', 'test.log')
+        expect(Logger::LogDevice).to receive(:new).and_call_original
+        begin
+          config_h = {
+            'log' => { 'file' => log_file },
+            'oai' => { 'base_url' => 'https://tind.example.edu/oai2d', 'set' => 'calher130' }
+          }
+          config = Config.new(config_h)
+          harvester = Harvester.new(config)
+          log = harvester.log
+          msg = 'help I am trapped in a logging factory'
+          log.info(msg)
+          log_file_data = File.read(log_file)
+          expect(log_file_data).to include(msg)
+        ensure
+          FileUtils.remove_entry(tmpdir)
+        end
+      end
     end
 
     describe :determine_from_time do
