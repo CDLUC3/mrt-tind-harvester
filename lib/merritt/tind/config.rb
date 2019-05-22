@@ -21,6 +21,13 @@ module Merritt
         oai_config_h['set']
       end
 
+      def stop_file_path
+        @stop_file_path ||= begin
+          stop_file = config_h['stop_file']
+          resolve_relative_path(stop_file)
+        end
+      end
+
       def mrt_collection_ark
         merritt_config_h['collection_ark']
       end

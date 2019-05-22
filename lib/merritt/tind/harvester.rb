@@ -16,6 +16,8 @@ module Merritt
       end
 
       def process_feed!(from_time: nil, until_time: nil)
+        return if stop_file_present?
+
         from_time = determine_from_time(from_time)
         feed = harvest(from_time: from_time, until_time: until_time)
         return process_feed(feed, nil) if dry_run?
@@ -31,6 +33,7 @@ module Merritt
         server.join_server
       end
 
+      # TODO: inline this & fix tests to just test process_feed!
       def harvest(from_time: nil, until_time: nil)
         opts = to_oai_opts(from_time, until_time)
         log.info("harvesting #{query_uri(opts)}")
@@ -40,6 +43,10 @@ module Merritt
 
       def dry_run?
         @dry_run
+      end
+
+      def stop_file_present?
+        config.stop_file_path && config.stop_file_path.exist?
       end
 
       def last_harvest
@@ -108,9 +115,9 @@ module Merritt
 
       class << self
 
-        def from_file(config_yml)
+        def from_file(config_yml, dry_run: false)
           config = Config.from_file(config_yml)
-          Harvester.new(config)
+          Harvester.new(config, dry_run: dry_run)
         end
 
         def oai_client_for(base_uri)

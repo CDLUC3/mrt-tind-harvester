@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'optparse'
+require 'optparse/time'
+require 'ostruct'
+require 'merritt/tind'
+
+USAGE = OpenStruct.new(
+  CONFIG: 'path to configuration file (required)'.freeze,
+  DRY_RUN: 'dry run (harvest, but do not submit or update last_harvest)'.freeze,
+  FROM: 'start date/time (inclusive) for selective harvesting'.freeze,
+  UNTIL: 'end date/time (inclusive) for selective harvesting'.freeze,
+  HELP: 'print this help and exit'
+).freeze
+
+class TINDHarvesterApp
+  attr_reader :options
+
+  def initialize
+    @options = OpenStruct.new(dry_run: false, help: false)
+  end
+
+  def option_parser
+    @option_parser = OptionParser.new do |opts|
+      opts.on('-c CONFIG', '--config=CONFIG', USAGE.CONFIG) { |config_file| options.config_file = config_file }
+      opts.on('-f', '--from DATETIME', Time, USAGE.FROM) { |from_time| options.from_time = to_utc_time(from_time) }
+      opts.on('-u', '--until DATETIME', Time, USAGE.UNTIL) { |until_time| options.until_time = to_utc_time(until_time) }
+      opts.on('-n', '--dry-run', USAGE.DRY_RUN) { options.dry_run = true }
+      opts.on('-h', '--help', USAGE.HELP) { options.help = true }
+    end
+  end
+
+  def do_harvest!
+    option_parser.parse!
+
+    print_help_and_exit(0) if options.help
+
+    harvester = Merritt::TIND::Harvester.from_file(config_file, dry_run: options.dry_run)
+    harvester.process_feed!(from_time: options.from_time, until_time: options.until_time)
+  end
+
+  private
+
+  def config_file
+    config_file = options.config_file
+    return config_file if config_file && File.exist?(config_file)
+
+    exit_with_error('No configuration file specified') unless config_file
+    exit_with_error('The specified configuration file does not exist: ' + config_file)
+  end
+
+  def help
+    option_parser.to_s
+  end
+
+  def exit_with_error(msg)
+    warn(msg)
+    print_help_and_exit(1)
+  end
+
+  def print_help_and_exit(status)
+    warn(help)
+    exit(status)
+  end
+end
+
+app = TINDHarvesterApp.new
+app.do_harvest!

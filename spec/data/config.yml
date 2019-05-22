@@ -1,5 +1,6 @@
 test:
   last_harvest: last-harvest.yml
+  stop_file: stop-ucb_lib_bancroft_content
   oai:
     base_url: https://tind.example.edu/oai2d
     set: calher130

@@ -294,5 +294,7 @@ module Merritt::TIND
       end
     end
 
+    # TODO: add spec for stop file
+
   end
 end
