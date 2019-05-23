@@ -75,14 +75,14 @@ module Merritt::TIND
 
       it 'extracts the local ID' do
         # TODO: something smarter when we know the real requirements
-        expect(record.local_id).to eq(record.identifier)
+        expect(record.local_id).to eq(record.dc_identifiers.first)
       end
 
       it 'builds an ERC hash' do
         # TODO: something smarter when we know the real requirements
         erc_hash = {
           'where' => record.identifier,
-          'what' => record.identifier,
+          'what' => record.local_id,
           'when' => record.dc_dates.first,
           'when/created' => record.dc_dates.first,
           'when/modified' => record.datestamp

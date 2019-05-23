@@ -77,7 +77,7 @@ module Merritt
       end
 
       def log
-        @log ||= Logging.new_logger(config.log_path, config.log_level)
+        @log ||= Logging.new_logger(log_path, config.log_level)
       end
 
       def determine_from_time(from_time = nil)
@@ -88,6 +88,10 @@ module Merritt
         return oldest_failed if oldest_failed
 
         lh.newest_success_datestamp
+      end
+
+      def log_path
+        config.log_path
       end
 
       private
