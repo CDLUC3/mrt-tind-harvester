@@ -52,6 +52,7 @@ module Merritt
         RecordProcessor.new(r, harvester, server).process_record!
         @last_harvest_next = last_harvest_next.update(success: r)
       rescue StandardError => e
+        # TODO: can we identify failures after submission?
         log.warn(e)
         @last_harvest_next = last_harvest_next.update(failure: r)
       end

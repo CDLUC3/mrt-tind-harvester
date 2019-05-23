@@ -1,6 +1,4 @@
 test:
-  last_harvest: last-harvest.yml
-  stop_file: stop.txt
   oai:
     base_url: https://tind.example.edu/oai2d
     set: calher130
@@ -9,6 +7,8 @@ test:
     database: database.yml
     ingest_url: http://merritt.example.edu/object/ingest
     ingest_profile: ucb_lib_bancroft_content
+  last_harvest: last-harvest.yml
+  stop_file: stop.txt
   log:
     file: tind-harvester.log
     level: info

@@ -1,6 +1,4 @@
 stage:
-  last_harvest: last-harvest-stage.yml
-  stop_file: stop-stage.txt
   oai:
     base_url: https://berkeley-test.tind.io/oai2d
     set: calher130
@@ -9,13 +7,13 @@ stage:
     database: ../database.yml
     ingest_url: http://merritt-stage.cdlib.org:33121/poster/submit/
     ingest_profile: ucb_lib_content
+  last_harvest: last-harvest-stage.yml
+  stop_file: stop-stage.txt
   log:
     file: stage.log
     # level: debug   # debug is the default level
 
 production:
-  last_harvest: last-harvest-production.yml
-  stop_file: stop-production.txt
   oai:
     base_url: https://berkeley.tind.io/oai2d
     set: calher130
@@ -24,6 +22,8 @@ production:
     database: ../database.yml
     ingest_url: http://merritt.cdlib.org:33121/poster/submit/
     ingest_profile: ucb_lib_cal_heritage
+  last_harvest: last-harvest-production.yml
+  stop_file: stop-production.txt
   log:
     file: production.log
     level: info
