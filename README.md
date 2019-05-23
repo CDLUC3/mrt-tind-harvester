@@ -6,6 +6,14 @@ Utility for harvesting OAI-PMH records from the UC Berkeley library’s
 [TIND DA](http://info.tind.io/da) installation to identify full-res TIFF
 files for ingest into Merritt. 
 
+The harvester needs to run on a server with access to:
+
+1. the TIND OAI-PMH feed
+2. the Merritt ingest server for the target environment
+
+In addition, the Merritt ingest server needs to have access to any
+URLs that will be ingested into Merritt as a result of the harvest
+
 ## Configuration
 
 Each feed to be harvested requires a YAML configuration file, e.g.
