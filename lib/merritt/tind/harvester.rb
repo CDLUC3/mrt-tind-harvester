@@ -40,7 +40,10 @@ module Merritt
       end
 
       def stop_file_present?
-        config.stop_file_path && config.stop_file_path.exist?
+        stop_file_path = config.stop_file_path
+        stop_file_present = stop_file_path && stop_file_path.exist?
+        log.info("Stop file present: #{config.stop_file_path}") if stop_file_present
+        stop_file_present
       end
 
       def last_harvest

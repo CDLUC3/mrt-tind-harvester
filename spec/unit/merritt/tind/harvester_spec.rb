@@ -76,6 +76,7 @@ module Merritt::TIND
         @set = 'calher130'
         config_h = {
           'last_harvest' => last_harvest_path.to_s,
+          'stop_file' => Pathname.new(tmpdir) + 'stop.txt',
           'oai' => { 'base_url' => base_url, 'set' => set }
         }
         @config = Config.new(config_h)
@@ -93,6 +94,30 @@ module Merritt::TIND
 
       after(:each) do
         FileUtils.remove_entry(tmpdir)
+      end
+
+      it "doesn't harvest or process if stop file is present" do
+        expect(config.stop_file_path).not_to be_nil # just to be sure
+        FileUtils.touch(config.stop_file_path)
+
+        expect(Feed).not_to receive(:new)
+        expect(Mrt::Ingest::OneTimeServer).not_to receive(:new)
+        expect(feed_processor).not_to receive(:process_feed!)
+        harvester.process_feed!
+      end
+
+      it 'harvests but does not process if dry run flag is set' do
+        expected_url = "#{base_url}?verb=ListRecords&metadataPrefix=oai_dc&set=#{set}"
+        stub_request(:get, expected_url).to_return(status: 200, body: File.new('spec/data/feed.xml'))
+
+        harvester = Harvester.new(config, dry_run: true)
+
+        expect(Mrt::Ingest::OneTimeServer).not_to receive(:new)
+
+        expect(FeedProcessor).to receive(:new).with(harvester: harvester, feed: feed, server: nil).and_return(feed_processor)
+        expect(feed_processor).to receive(:process_feed!)
+
+        harvester.process_feed!
       end
 
       it 'processes the feed' do
@@ -239,8 +264,6 @@ module Merritt::TIND
         expect(actual.to_h).to eq(expected.to_h)
       end
     end
-
-    # TODO: add spec for stop file
 
   end
 end
