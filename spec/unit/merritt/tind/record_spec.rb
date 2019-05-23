@@ -81,8 +81,8 @@ module Merritt::TIND
       it 'builds an ERC hash' do
         # TODO: something smarter when we know the real requirements
         erc_hash = {
-          'where' => record.identifier,
-          'what' => record.local_id,
+          'what' => record.identifier,
+          'where' => record.local_id,
           'when' => record.dc_dates.first,
           'when/created' => record.dc_dates.first,
           'when/modified' => record.datestamp

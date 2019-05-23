@@ -20,8 +20,8 @@ module Merritt
       def erc
         # TODO: something smarter when we know the real requirements
         {
-          'where' => identifier,
-          'what' => local_id,
+          'what' => identifier,
+          'where' => local_id,
           'when' => dc_dates.first || datestamp,
           'when/created' => dc_dates.first || datestamp,
           'when/modified' => datestamp
