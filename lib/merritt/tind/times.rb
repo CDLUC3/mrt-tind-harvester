@@ -12,6 +12,8 @@ module Merritt
           ]
         end
 
+        private
+
         def valid_range(from_time, until_time)
           from_time, until_time = [from_time, until_time].map(&method(:utc_or_nil))
           if from_time && until_time

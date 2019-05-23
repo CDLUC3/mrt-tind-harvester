@@ -18,8 +18,10 @@ module Merritt
       def process_feed!(from_time: nil, until_time: nil)
         return if stop_file_present?
 
-        from_time = determine_from_time(from_time)
-        feed = harvest(from_time: from_time, until_time: until_time)
+        opts = to_oai_opts(from_time, until_time)
+        log.info("harvesting #{query_uri(opts)}")
+        resp = oai_client.list_records(opts)
+        feed = Feed.new(resp)
         return process_feed(feed, nil) if dry_run?
 
         with_server { |server| process_feed(feed, server) }
@@ -31,14 +33,6 @@ module Merritt
         yield server
       ensure
         server.join_server
-      end
-
-      # TODO: inline this & fix tests to just test process_feed!
-      def harvest(from_time: nil, until_time: nil)
-        opts = to_oai_opts(from_time, until_time)
-        log.info("harvesting #{query_uri(opts)}")
-        resp = oai_client.list_records(opts)
-        Feed.new(resp)
       end
 
       def dry_run?
@@ -109,6 +103,7 @@ module Merritt
       end
 
       def to_oai_opts(from_time, until_time)
+        from_time = determine_from_time(from_time)
         from_iso8601, until_iso8601 = Times.iso8601_range(from_time, until_time)
         { from: from_iso8601, until: until_iso8601, set: config.oai_set }.compact
       end

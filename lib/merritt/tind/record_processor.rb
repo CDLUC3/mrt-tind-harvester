@@ -31,7 +31,7 @@ module Merritt
       def submit_to_ingest!
         ingest_object.add_component(content_uri)
         response = ingest_object.start_ingest(ingest_client, ingest_profile, USER_AGENT)
-        log.info("Batch #{response.batch_id} received at #{response.submission_date}")
+        log.info("Batch #{response.batch_id} queued at #{response.submission_date}")
         true # TODO: is there anything in the response that might cause us to return false?
       end
 

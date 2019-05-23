@@ -12,7 +12,7 @@ FactoryBot.define do
     erc_who { '(:unas)' }
     erc_what { '(:unas)' }
     erc_when { '(:unas)' }
-    erc_where { '(:unas)' } # TODO: can we access the ark here?
+    erc_where { '(:unas)' }
 
     created { Time.now }
     modified { Time.now }

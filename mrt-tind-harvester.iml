@@ -71,7 +71,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.8.3, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.8.0, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.8.0, RVM: ruby-2.4.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rubocop (v0.68.1, RVM: ruby-2.4.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rubocop (v0.69.0, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rspec (v1.33.0, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-progressbar (v1.10.0, RVM: ruby-2.4.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="safe_yaml (v1.0.5, RVM: ruby-2.4.4) [gem]" level="application" />
