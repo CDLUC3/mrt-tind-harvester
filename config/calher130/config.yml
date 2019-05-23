@@ -1,0 +1,29 @@
+stage:
+  last_harvest: last-harvest-stage.yml
+  stop_file: stop-stage.txt
+  oai:
+    base_url: https://berkeley-test.tind.io/oai2d
+    set: calher130
+  merritt:
+    collection_ark: ark:/13030/m5vd6wc7
+    database: ../database.yml
+    ingest_url: http://merritt-stage.cdlib.org:33121/poster/submit/
+    ingest_profile: ucb_lib_content
+  log:
+    file: stage.log
+    # level: debug   # debug is the default level
+
+production:
+  last_harvest: last-harvest-production.yml
+  stop_file: stop-production.txt
+  oai:
+    base_url: https://berkeley.tind.io/oai2d
+    set: calher130
+  merritt:
+    collection_ark: ark:/13030/m5ww7fsr
+    database: ../database.yml
+    ingest_url: http://merritt.cdlib.org:33121/poster/submit/
+    ingest_profile: ucb_lib_cal_heritage
+  log:
+    file: production.log
+    level: info
