@@ -98,6 +98,8 @@ module Merritt
 
           config_h = YAML.load_file(config_yml)
           env_config = config_h[environment]
+          raise ArgumentError, "No configuration for environment '#{environment}' found in #{config_yml}" if env_config.nil? || env_config.empty?
+
           Config.new(env_config, config_yml: config_yml)
         end
 

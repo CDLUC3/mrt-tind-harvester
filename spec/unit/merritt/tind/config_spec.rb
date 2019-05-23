@@ -27,6 +27,15 @@ module Merritt::TIND
         from_path = Config.from_file(pathname)
         expect(from_path.config_h).to eq(from_file.config_h)
       end
+
+      it 'fails fast if it gets an unknown environment' do
+        begin
+          ENV['HARVESTER_ENV'] = 'elvis'
+          expect { Config.from_file('spec/data/config.yml') }.to raise_error(ArgumentError)
+        ensure
+          ENV['HARVESTER_ENV'] = 'test'
+        end
+      end
     end
 
     describe :environment do
