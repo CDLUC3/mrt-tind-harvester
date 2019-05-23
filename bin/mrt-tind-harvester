@@ -12,7 +12,7 @@ USAGE = OpenStruct.new(
   DRY_RUN: 'dry run (harvest, but do not submit or update last_harvest)'.freeze,
   FROM: 'start date/time (inclusive) for selective harvesting'.freeze,
   UNTIL: 'end date/time (inclusive) for selective harvesting'.freeze,
-  HELP: 'print this help and exit'
+  HELP: 'print help and exit'
 ).freeze
 
 class TINDHarvesterApp
@@ -24,7 +24,7 @@ class TINDHarvesterApp
 
   def option_parser
     @option_parser = OptionParser.new do |opts|
-      opts.on('-c CONFIG', '--config=CONFIG', USAGE.CONFIG) { |config_file| options.config_file = config_file }
+      opts.on('-c CONFIG', '--config CONFIG', USAGE.CONFIG) { |config_file| options.config_file = config_file }
       opts.on('-f', '--from DATETIME', Time, USAGE.FROM) { |from_time| options.from_time = to_utc_time(from_time) }
       opts.on('-u', '--until DATETIME', Time, USAGE.UNTIL) { |until_time| options.until_time = to_utc_time(until_time) }
       opts.on('-n', '--dry-run', USAGE.DRY_RUN) { options.dry_run = true }
@@ -38,7 +38,11 @@ class TINDHarvesterApp
     print_help_and_exit(0) if options.help
 
     harvester = Merritt::TIND::Harvester.from_file(config_file, dry_run: options.dry_run)
+    warn("Starting harvester; logging to #{harvester.log_path}")
     harvester.process_feed!(from_time: options.from_time, until_time: options.until_time)
+  rescue StandardError => e
+    warn(e)
+    print_help_and_exit(1)
   end
 
   private
