@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'bundler/setup'
+Dir.chdir(__dir__) { require 'bundler/setup' }
+
 require 'optparse'
 require 'optparse/time'
 require 'ostruct'
