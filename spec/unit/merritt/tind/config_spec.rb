@@ -6,9 +6,18 @@ module Merritt::TIND
     describe :from_file do
       it 'constructs a valid config' do
         config = Config.from_file('spec/data/config.yml')
+        expect(config.last_harvest_path).to eq(Pathname.new('spec/data/last-harvest.yml').expand_path)
+        expect(config.stop_file_path).to eq(Pathname.new('spec/data/stop.txt').expand_path)
+
         expect(config.oai_base_url).to eq('https://tind.example.edu/oai2d')
         expect(config.oai_set).to eq('calher130')
+
         expect(config.mrt_collection_ark).to eq('ark:/13030/m5vd6wc7')
+        expect(config.db_config_path).to eq(Pathname.new('spec/data/database.yml').expand_path)
+        expect(config.mrt_ingest_url).to eq('http://merritt.example.edu/object/ingest')
+        expect(config.mrt_ingest_profile).to eq('ucb_lib_bancroft_content')
+        expect(config.log_path).to eq(Pathname.new('spec/data/tind-harvester.log').expand_path)
+        expect(config.log_level).to eq('info')
       end
 
       it 'accepts a pathname' do

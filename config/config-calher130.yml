@@ -1,5 +1,6 @@
 stage:
-  last_harvest: ../log/last-harvest-calher130-stage.yml
+  last_harvest: calher130-stage/last-harvest.yml
+  stop_file: calher130-stage/stop-tind-harvester.txt
   oai:
     base_url: https://berkeley-test.tind.io/oai2d
     set: calher130
@@ -9,5 +10,5 @@ stage:
     ingest_url: http://merritt-stage.cdlib.org:33121/poster/submit/
     ingest_profile: ucb_lib_content
   log:
-    file: ../log/calher130-stage.log
+    file: calher130-stage/mrt-tind-harvester.log
     level: info

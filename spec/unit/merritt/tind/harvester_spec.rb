@@ -191,7 +191,7 @@ module Merritt::TIND
 
     describe :log do
       it 'logs to the configured logger' do
-        log_path = Pathname.new('spec/data/tind-harvester-test.log').expand_path
+        log_path = Pathname.new('spec/data/tind-harvester.log').expand_path
         expect(Logger::LogDevice).to receive(:new)
           .with(log_path, hash_including(shift_age: Logging::NUM_LOG_FILES))
           .and_return(logdev)

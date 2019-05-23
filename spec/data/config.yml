@@ -1,14 +1,14 @@
 test:
   last_harvest: last-harvest.yml
-  stop_file: stop-ucb_lib_bancroft_content
+  stop_file: stop.txt
   oai:
     base_url: https://tind.example.edu/oai2d
     set: calher130
   merritt:
     collection_ark: ark:/13030/m5vd6wc7
-    database: ../../.config-travis/database.yml # TODO: set explicitly in test
+    database: database.yml
     ingest_url: http://merritt.example.edu/object/ingest
     ingest_profile: ucb_lib_bancroft_content
   log:
-    file: tind-harvester-test.log
+    file: tind-harvester.log
     level: info
