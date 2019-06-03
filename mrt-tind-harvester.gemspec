@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot', '~> 4.11'
   s.add_development_dependency 'rake', '~> 12.0'
   s.add_development_dependency 'rspec', '~> 3.8'
-  s.add_development_dependency 'rubocop', '~> 0.68'
+  s.add_development_dependency 'rubocop', '~> 0.69'
   s.add_development_dependency 'rubocop-rspec', '~> 1.33'
   s.add_development_dependency 'simplecov', '~> 0.16'
   s.add_development_dependency 'simplecov-console', '~> 0.4'
