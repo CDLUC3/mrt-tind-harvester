@@ -3,6 +3,9 @@
 .config-secret
 log
 
+# Gemfile.lock should be checked in for apps, but not for gems
+Gemfile.lock
+
 # github-markdown-preview previews
 *.md.html
 
